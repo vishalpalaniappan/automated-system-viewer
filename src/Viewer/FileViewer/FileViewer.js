@@ -23,19 +23,32 @@ export function FileViewer () {
     const [layout, setLayout] = useState();
 
     useEffect(() => {
-        const height = viewerRef.current.getBoundingClientRect().height/4;
-        const width = viewerRef.current.getBoundingClientRect().width;
-        setEditorHeight(height);
-        setEditorWidth(width);
+        const updateDimensions = () => {
+            if (viewerRef.current) {
+                const height = viewerRef.current.getBoundingClientRect().height/4;
+                const width = viewerRef.current.getBoundingClientRect().width;
+                setEditorHeight(height);
+                setEditorWidth(width);
+            }
+        };
+
+        updateDimensions();
 
         setLayout([
-            {i: "a", x: 0, y: 0, w: 4, h: 1},
-            {i: "b", x: 4, y: 0, w: 4, h: 1},
-            {i: "c", x: 8, y: 0, w: 4, h: 1},
-            {i: "d", x: 0, y: 4, w: 8, h: 1},
+            {i: "a", x: 0, y: 0, w: 6, h: 1},
+            {i: "b", x: 6, y: 0, w: 6, h: 1},
+            {i: "c", x: 0, y: 8, w: 6, h: 1},
+            {i: "d", x: 6, y: 8, w: 6, h: 1},
         ]);
 
         setShowGrid(true);
+
+        const observer = new ResizeObserver(updateDimensions).observe(viewerRef.current);
+        return () => {
+            if (observer) {
+                observer.disconnect();
+            }
+        };
     }, []);
 
     return (
