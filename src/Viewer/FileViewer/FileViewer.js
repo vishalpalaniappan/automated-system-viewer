@@ -43,11 +43,10 @@ export function FileViewer () {
 
         setShowGrid(true);
 
-        const observer = new ResizeObserver(updateDimensions).observe(viewerRef.current);
+        const observer = new ResizeObserver(updateDimensions);
+        observer.observe(viewerRef.current);
         return () => {
-            if (observer) {
-                observer.disconnect();
-            }
+            observer.disconnect();
         };
     }, []);
 
