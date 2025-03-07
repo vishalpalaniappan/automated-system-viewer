@@ -1,0 +1,9 @@
+.file-view-container {
+    height:100%;
+    width:100%;
+    cursor: grab;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    scrollbar-color: #47474766 #1e1e1e;
+    scrollbar-width: thin;
+}
