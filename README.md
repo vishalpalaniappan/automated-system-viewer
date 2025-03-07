@@ -5,4 +5,4 @@ Click [here][demo-url] for a live demo of main branch.
 
 
 
-[demo-url]: https://vishalpalaniappan.github.io/automated-system-viewer/)
+[demo-url]: https://vishalpalaniappan.github.io/automated-system-viewer/
