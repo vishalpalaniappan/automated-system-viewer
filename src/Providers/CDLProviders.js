@@ -64,7 +64,7 @@ function CDLProviders ({children, fileInfo}) {
             default:
                 break;
         }
-    });
+    }, []);
 
     return (
         <>
