@@ -53,7 +53,7 @@ function CDLProviders ({children, fileInfo}) {
                 console.error("Failed to initialize worker:", error);
             }
         }
-    }, [fileInfo]);
+    }, [fileInfo, handleWorkerMessage]);
 
     /**
      * Handles message from the worker.
