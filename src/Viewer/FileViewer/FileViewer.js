@@ -4,8 +4,8 @@ import GridLayout from "react-grid-layout";
 
 import {MonacoInstance} from "../../Components/MonacoInstance/MonacoInstance";
 
-import "../../../node_modules/react-grid-layout/css/styles.css";
-import "../../../node_modules/react-resizable/css/styles.css";
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
 import "./FileViewer.scss";
 import "monaco-editor/min/vs/editor/editor.main.css";
 
