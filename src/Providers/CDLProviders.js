@@ -16,7 +16,7 @@ const WS_URL = "ws://localhost:8765";
  * @return {JSX}
  */
 function CDLProviders ({children}) {
-    // State that holds the history of recived messages
+    // State that holds the history of received messages
     const [messageHistory, setMessageHistory] = useState([]);
 
     // Open websocket connection and reconnect when it closes
@@ -28,14 +28,6 @@ function CDLProviders ({children}) {
         }
     );
 
-    // React to changes in the websocket ready state
-    useEffect(() => {
-        console.debug(`Connection state: ${connectionStatus}`);
-        if (readyState === ReadyState.OPEN) {
-            sendJsonMessage({event: "connected"});
-        }
-    }, [readyState]);
-
     // Map connection status to string for debugging
     const connectionStatus = {
         [ReadyState.CONNECTING]: "Connecting",
@@ -44,6 +36,14 @@ function CDLProviders ({children}) {
         [ReadyState.CLOSED]: "Closed",
         [ReadyState.UNINSTANTIATED]: "Uninstantiated",
     }[readyState];
+
+    // React to changes in the websocket ready state
+    useEffect(() => {
+        console.debug(`Connection state: ${connectionStatus}`);
+        if (readyState === ReadyState.OPEN) {
+            sendJsonMessage({event: "connected"});
+        }
+    }, [readyState]);
 
     // React to received messages
     useEffect(() => {
