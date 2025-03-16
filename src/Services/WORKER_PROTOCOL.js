@@ -1,0 +1,5 @@
+let WORKER_PROTOCOL = {
+};
+WORKER_PROTOCOL = Object.freeze(WORKER_PROTOCOL);
+
+export default WORKER_PROTOCOL;
