@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
-CDLProviders.propTypes = {
+ASPProviders.propTypes = {
     children: PropTypes.object,
 };
 
@@ -15,7 +15,7 @@ const WS_URL = "ws://localhost:8765";
  * @param {string} fileInfo
  * @return {JSX}
  */
-function CDLProviders ({children}) {
+function ASPProviders ({children}) {
     // State that holds the history of received messages
     const [messageHistory, setMessageHistory] = useState([]);
 
@@ -37,7 +37,7 @@ function CDLProviders ({children}) {
         [ReadyState.UNINSTANTIATED]: "Uninstantiated",
     }[readyState];
 
-    // React to changes in the websocket ready state
+    // React to changes in the websocket state
     useEffect(() => {
         console.debug(`Connection state: ${connectionStatus}`);
         if (readyState === ReadyState.OPEN) {
@@ -60,4 +60,4 @@ function CDLProviders ({children}) {
     );
 };
 
-export default CDLProviders;
+export default ASPProviders;
