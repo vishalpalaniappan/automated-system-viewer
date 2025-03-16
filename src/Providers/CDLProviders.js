@@ -31,18 +31,8 @@ function CDLProviders ({children}) {
     // React to changes in the websocket ready state
     useEffect(() => {
         console.debug(`Connection state: ${connectionStatus}`);
-        switch (readyState) {
-            case ReadyState.OPEN:
-                sendJsonMessage({event: "connected"});
-                break;
-            case ReadyState.CONNECTING:
-                break;
-            case ReadyState.CLOSING:
-                break;
-            case ReadyState.CLOSED:
-                break;
-            case ReadyState.UNINSTANTIATED:
-                break;
+        if (readyState === ReadyState.OPEN) {
+            sendJsonMessage({event: "connected"});
         }
     }, [readyState]);
 
