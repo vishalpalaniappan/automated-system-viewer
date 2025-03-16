@@ -20,7 +20,7 @@ function CDLProviders ({children}) {
     const [messageHistory, setMessageHistory] = useState([]);
 
     // Open websocket connection and reconnect when it closes
-    const {sendJsonMessage, lastMessage, readyState} = useWebSocket(
+    const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(
         WS_URL,
         {
             share: false,
@@ -47,11 +47,11 @@ function CDLProviders ({children}) {
 
     // React to received messages
     useEffect(() => {
-        if (lastMessage) {
-            console.debug(`Received Message: ${lastMessage.data}`);
-            setMessageHistory((prev) => prev.concat(lastMessage));
+        if (lastJsonMessage) {
+            console.debug(`Received Message: ${JSON.stringify(lastJsonMessage)}`);
+            setMessageHistory((prev) => prev.concat(lastJsonMessage));
         }
-    }, [lastMessage]);
+    }, [lastJsonMessage]);
 
     return (
         <>
