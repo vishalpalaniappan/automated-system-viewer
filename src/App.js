@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 
 import CDLProviders from "./Providers/CDLProviders";
 import {Viewer} from "./Viewer/Viewer";
@@ -12,10 +12,8 @@ import "./App.scss";
  * @return {JSX.Element}
  */
 export function App () {
-    const [fileInfo, setFileInfo] = useState(null);
-
     return (
-        <CDLProviders fileInfo={fileInfo}>
+        <CDLProviders>
             <Viewer/>
         </CDLProviders>
     );
