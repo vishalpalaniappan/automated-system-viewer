@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
 import FileTreeContext from "./FileTreeContext";
+import GraphInfoContext from "./GraphInfoContext";
+import TraceParser from "./TraceParser";
 import UniqueTraceContext from "./UniqueTraceContext";
 
 ASPProviders.propTypes = {
@@ -24,6 +26,7 @@ function ASPProviders ({children}) {
 
     const [fileTree, setFileTree] = useState();
     const [uniqueTrace, setUniqueTrace] = useState();
+    const [graphInfo, setGraphInfo] = useState();
 
     // Open websocket connection and reconnect when it closes
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(
@@ -65,7 +68,9 @@ function ASPProviders ({children}) {
     const handleMessage = (msg) => {
         if (msg.code == 1) {
             console.log("Unique System Traces:", msg.response);
+            const parser = new TraceParser(msg.response);
             setUniqueTrace(msg.response);
+            setGraphInfo(parser.graphInfo);
         } else if (msg.code == 2) {
             console.log("System File Trees:", msg.response);
             setFileTree(msg.response);
@@ -76,7 +81,9 @@ function ASPProviders ({children}) {
         <>
             <FileTreeContext.Provider value={{fileTree}}>
                 <UniqueTraceContext.Provider value={{uniqueTrace}}>
-                    {children}
+                    <GraphInfoContext.Provider value={{graphInfo}}>
+                        {children}
+                    </GraphInfoContext.Provider>
                 </UniqueTraceContext.Provider>
             </FileTreeContext.Provider>
         </>
