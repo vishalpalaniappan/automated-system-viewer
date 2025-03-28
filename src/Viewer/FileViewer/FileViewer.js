@@ -4,6 +4,7 @@ import GridLayout from "react-grid-layout";
 
 import CustomNodeFlow from "../../Components/Graph/Graph";
 import {MonacoInstance} from "../../Components/MonacoInstance/MonacoInstance";
+import TraceView from "../../Components/TraceView/TraceView";
 
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
@@ -36,9 +37,8 @@ export function FileViewer () {
         updateDimensions();
 
         setLayout([
-            {i: "a", x: 0, y: 0, w: 12, h: 2},
-            {i: "c", x: 0, y: 12, w: 6, h: 2},
-            {i: "d", x: 6, y: 8, w: 6, h: 2},
+            {i: "a", x: 0, y: 0, w: 12, h: 1},
+            {i: "d", x: 0, y: 8, w: 12, h: 3},
         ]);
 
         setShowGrid(true);
@@ -64,9 +64,6 @@ export function FileViewer () {
                 >
                     <div key="a">
                         <CustomNodeFlow/>
-                    </div>
-                    <div key="c">
-                        <MonacoInstance/>
                     </div>
                     <div key="d">
                         <MonacoInstance/>

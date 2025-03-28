@@ -11,6 +11,7 @@ import {
 } from "@xyflow/react";
 
 import FileTreeContext from "../../Providers/FileTreeContext";
+import GraphInfoContext from "../../Providers/GraphInfoContext";
 import UniqueTraceContext from "../../Providers/UniqueTraceContext";
 
 import "@xyflow/react/dist/style.css";
@@ -34,16 +35,17 @@ import "@xyflow/react/dist/style.css";
 const HiddenFlow = () => {
     const uniqueTraces = useContext(UniqueTraceContext);
     const fileTree = useContext(FileTreeContext);
+    const graphInfo = useContext(GraphInfoContext);
 
     const [nodes, setNodes, onNodesChange] = useNodesState();
     const [edges, setEdges, onEdgesChange] = useEdgesState();
 
     useEffect(() => {
-        if (uniqueTraces?.uniqueTrace?.nodes) {
+        if (graphInfo?.graphInfo?.nodes) {
             // setEdges(uniqueTraces.uniqueTrace.edges);
-            setNodes(uniqueTraces.uniqueTrace.nodes);
+            setNodes(graphInfo.graphInfo.nodes);
         }
-    }, [uniqueTraces]);
+    }, [graphInfo]);
 
     const onConnect = useCallback(
         (params) => setEdges((els) => addEdge(params, els)),
