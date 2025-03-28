@@ -37,8 +37,8 @@ export function FileViewer () {
         updateDimensions();
 
         setLayout([
-            {i: "a", x: 0, y: 0, w: 12, h: 1},
-            {i: "d", x: 0, y: 8, w: 12, h: 3},
+            {i: "a", x: 0, y: 0, w: 12, h: 2},
+            {i: "d", x: 0, y: 8, w: 12, h: 2},
         ]);
 
         setShowGrid(true);

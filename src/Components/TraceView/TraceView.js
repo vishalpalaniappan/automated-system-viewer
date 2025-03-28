@@ -28,10 +28,10 @@ const TraceView = () => {
             );
         });
         setUniqueIds(options);
+        setTraceJson(uniqueTraces.uniqueTrace[ids[0]]);
     };
 
     const selectUid = (event) => {
-        console.log("Selecting UID:", uid)
         const uid = event.target.value;
         setTraceJson(uniqueTraces.uniqueTrace[uid]);
     };
