@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
 import FileTreeContext from "./FileTreeContext";
+import TraceParser from "./TraceParser";
 import UniqueTraceContext from "./UniqueTraceContext";
 
 ASPProviders.propTypes = {
@@ -65,7 +66,8 @@ function ASPProviders ({children}) {
     const handleMessage = (msg) => {
         if (msg.code == 1) {
             console.log("Unique System Traces:", msg.response);
-            setUniqueTrace(msg.response);
+            const parser = new TraceParser(msg.response);
+            setUniqueTrace(parser.graphInfo);
         } else if (msg.code == 2) {
             console.log("System File Trees:", msg.response);
             setFileTree(msg.response);
