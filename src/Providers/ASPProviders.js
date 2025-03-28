@@ -3,6 +3,9 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
+import FileTreeContext from "./FileTreeContext";
+import UniqueTraceContext from "./UniqueTraceContext";
+
 ASPProviders.propTypes = {
     children: PropTypes.object,
 };
@@ -18,6 +21,9 @@ const WS_URL = "ws://localhost:8765";
 function ASPProviders ({children}) {
     // State that holds the history of received messages
     const [messageHistory, setMessageHistory] = useState([]);
+
+    const [fileTree, setFileTree] = useState();
+    const [uniqueTrace, setUniqueTrace] = useState();
 
     // Open websocket connection and reconnect when it closes
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(
@@ -41,21 +47,38 @@ function ASPProviders ({children}) {
     useEffect(() => {
         console.debug(`Connection state: ${connectionStatus}`);
         if (readyState === ReadyState.OPEN) {
-            sendJsonMessage({event: "connected"});
+            console.log("RUNNING");
+            sendJsonMessage({code: 2});
+            sendJsonMessage({code: 1});
         }
     }, [readyState]);
 
     // React to received messages
     useEffect(() => {
         if (lastJsonMessage) {
-            console.debug(`Received Message: ${JSON.stringify(lastJsonMessage)}`);
+            handleMessage(lastJsonMessage);
             setMessageHistory((prev) => prev.concat(lastJsonMessage));
         }
     }, [lastJsonMessage]);
 
+
+    const handleMessage = (msg) => {
+        if (msg.code == 1) {
+            console.log("Unique System Traces:", msg.response);
+            setUniqueTrace(msg.response);
+        } else if (msg.code == 2) {
+            console.log("System File Trees:", msg.response);
+            setFileTree(msg.response);
+        }
+    };
+
     return (
         <>
-            {children}
+            <FileTreeContext.Provider value={{fileTree}}>
+                <UniqueTraceContext.Provider value={{uniqueTrace}}>
+                    {children}
+                </UniqueTraceContext.Provider>
+            </FileTreeContext.Provider>
         </>
     );
 };
