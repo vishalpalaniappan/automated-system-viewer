@@ -48,8 +48,9 @@ function ASPProviders ({children}) {
         console.debug(`Connection state: ${connectionStatus}`);
         if (readyState === ReadyState.OPEN) {
             console.log("RUNNING");
-            sendJsonMessage({code: 2});
-            sendJsonMessage({code: 1});
+            sendJsonMessage(
+                {queryType: "GET_SYSTEMS"}
+            );
         }
     }, [readyState]);
 
@@ -63,12 +64,8 @@ function ASPProviders ({children}) {
 
 
     const handleMessage = (msg) => {
-        if (msg.code == 1) {
-            console.log("Unique System Traces:", msg.response);
-            setUniqueTrace(msg.response);
-        } else if (msg.code == 2) {
-            console.log("System File Trees:", msg.response);
-            setFileTree(msg.response);
+        if (msg.queryType == "GET_SYSTEMS") {
+            console.log("Systems:", msg.response);
         }
     };
 
