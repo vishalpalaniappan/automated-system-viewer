@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/vishalpalaniappan/diagnostic-log-viewer#readme",
   "dependencies": {
+    "@dagrejs/dagre": "^1.1.4",
     "@monaco-editor/react": "^4.4.6",
+    "@xyflow/react": "^12.6.0",
     "bootstrap": "^5.2.3",
     "buffer": "^6.0.3",
     "compression-webpack-plugin": "^10.0.0",

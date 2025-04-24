@@ -18,6 +18,7 @@ export function Viewer () {
                     <SideContainer />
                 </div>
                 <div className="d-flex flex-grow-1 h-100 overflow-hidden">
+                    <FileViewer />
                 </div>
             </div>
             <div className="status-bar-container">
