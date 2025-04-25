@@ -25,7 +25,6 @@ function ASPProviders ({children}) {
     // State that holds the history of received messages
     const [messageHistory, setMessageHistory] = useState([]);
 
-    const [fileTree, setFileTree] = useState();
     const [systemsList, setSystemsList] = useState(null);
     const [activeSystem, setActiveSystem] = useState();
     const [activeTraces, setActiveTraces] = useState();
@@ -98,15 +97,13 @@ function ASPProviders ({children}) {
 
     return (
         <>
-            <FileTreeContext.Provider value={{fileTree}}>
-                <SystemsContext.Provider value={{systemsList}}>
-                    <ActiveSystemContext.Provider value={{activeSystem, setActiveSystem}}>
-                        <ActiveTracesContext.Provider value={{activeTraces, setActiveTraces}}>
-                            {children}
-                        </ActiveTracesContext.Provider>
-                    </ActiveSystemContext.Provider>
-                </SystemsContext.Provider>
-            </FileTreeContext.Provider>
+            <SystemsContext.Provider value={{systemsList}}>
+                <ActiveSystemContext.Provider value={{activeSystem, setActiveSystem}}>
+                    <ActiveTracesContext.Provider value={{activeTraces, setActiveTraces}}>
+                        {children}
+                    </ActiveTracesContext.Provider>
+                </ActiveSystemContext.Provider>
+            </SystemsContext.Provider>
         </>
     );
 };
