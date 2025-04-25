@@ -19,17 +19,27 @@ npm run build
 # Websocket Server
 To start the websocket server that ASV connects to, please clone this [repo][asp-repo].  
 
-After cloning the repo, navigate to components/asp and run the system processor to generate the ASP database using the following command:
+After cloning the repo, to install the dependencies, navigate to the components/asp folder and run the following command:
+```shell
+pip install -r requirements.txt
+```
+In the components/asp folder,  run the system processor to generate the ASP database using the following command:
 ```shell
 python3 SystemProcessor.py
 ```
 This will process all the log files in the system logs folder and it will save the extracted traces to the ASP database.
 
-To start the websocket server that ASV connects to, navigate to components/query_handler and run the following command:
+To run the server, first install the dependencies by navigating to components/query_handler folder and run the following command:
+```shell
+pip install -r requirements.txt
+```
+To start the websocket server that ASV connects to, in the components/query_handler folder, run the following command:
 ```shell
 python3 server.py
 ```
 This will start a websocket server on port 8765. ASV connects to the websocket server (ws://localhost:8765) to query the ASP database and to visualize and filter through the system level traces.
+
+Note: This entire process will be automated in a coming PR.
 
 # Demo
 
