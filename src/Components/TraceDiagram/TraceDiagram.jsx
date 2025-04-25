@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useContext, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 
 import {
     Controls,
@@ -17,6 +17,7 @@ import {getNodesFromTrace} from "./helper.js";
 
 import "@xyflow/react/dist/style.css";
 
+
 const Flow = ({trace}) => {
     const {fitView} = useReactFlow();
     const [colorMode, setColorMode] = useState("dark");
@@ -29,10 +30,8 @@ const Flow = ({trace}) => {
     const onLayout = useCallback(
         (direction) => {
             const layouted = getLayoutedElements(nodes, edges, {direction});
-
             setNodes([...layouted.nodes]);
             setEdges([...layouted.edges]);
-
             fitView();
         },
         [nodes, edges]
@@ -40,8 +39,8 @@ const Flow = ({trace}) => {
 
     useEffect(() => {
         if (trace) {
+            // Set initial layout of nodes with a vertical layout
             const flowInfo = getNodesFromTrace(trace);
-
             const layouted = getLayoutedElements(
                 flowInfo.nodes,
                 flowInfo.edges,
