@@ -31,6 +31,8 @@ python3 server.py
 ```
 This will start a websocket server on port 8765 (ASV connects to this port).
 
+If you don't want to run the ASV development server yourself, you can visit the [demo][demo-url] page and it will connect to the ASP server that is running localy on your machine.
+
 # How does it work? 
 
 > [!NOTE]  
