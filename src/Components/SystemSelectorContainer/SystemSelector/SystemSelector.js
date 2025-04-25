@@ -19,7 +19,21 @@ export function SystemSelector () {
 
 
     return (
-        <div>
+        <div className="d-flex flex-column systemContainer">
+            <div className="d-flex flex-row systemSelectRow">
+                <div style={{width: "110px"}}>System ID:</div>
+                <div className="flex-grow-1">
+                    <select></select>
+                </div>
+            </div>
+            <div className="d-flex flex-row systemSelectRow">
+                <div style={{width: "110px"}}>Version:</div>
+                <div className="flex-grow-1">asf</div>
+            </div>
+            <div className="d-flex flex-row systemSelectRow">
+                <div style={{width: "110px"}}>Deployments:</div>
+                <div className="flex-grow-1">asf</div>
+            </div>
         </div>
     );
 }
