@@ -14,7 +14,6 @@ export function SystemSelectorContainer () {
     const debugContainerRef = useRef();
     const variableStackRef = useRef();
     const callStackRef = useRef();
-    const breakPointRef = useRef();
 
     const TITLE_HEIGHT = 20;
 

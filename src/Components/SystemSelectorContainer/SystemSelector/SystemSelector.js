@@ -39,7 +39,7 @@ export function SystemSelector () {
         }
     };
 
-    // Given a system ID, load versions into select dropdown, set active version
+    // Given a sys ID, load versions into select dropdown and set active version
     const loadVersions = (systemid) => {
         setActiveSystemId(systemid);
         const filteredSystems = systemsList.filter((obj) => {return obj.sysId === systemid;});
