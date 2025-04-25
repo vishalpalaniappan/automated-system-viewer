@@ -66,7 +66,7 @@ function ASPProviders ({children}) {
         }
     }, [lastJsonMessage]);
 
-    // Load the systems 
+    // Load the systems
     const loadSystems = (systems) => {
         const _systems = [];
         systems.forEach((system, index) => {
@@ -83,6 +83,7 @@ function ASPProviders ({children}) {
         }
     };
 
+    // Get the traces for the active system and deployment.
     useEffect(() => {
         if (activeSystem) {
             sendJsonMessage({
