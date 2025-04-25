@@ -36,11 +36,11 @@ export function VariableContainer ({type, variables}) {
 
     const getStyle = () => {
         const hasValue = Object.keys(variables).length > 0;
-        if (type == "node" && hasValue) {
+        if (type === "node" && hasValue) {
             return {
                 border: "solid 1px #ff6767",
             };
-        } else if (type == "trace" && hasValue) {
+        } else if (type === "trace" && hasValue) {
             return {};
         }
     };
