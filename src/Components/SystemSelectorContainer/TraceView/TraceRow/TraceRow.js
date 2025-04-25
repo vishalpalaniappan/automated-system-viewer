@@ -21,7 +21,6 @@ export function TraceRow ({node}) {
     const [startProgram, setStartProgram] = useState();
     const [duration, setDuration] = useState();
     const [numberOfEvents, setNumberOfEvents] = useState();
-    const [isSelected, setIsSelected] = useState(false);
 
     const {activeTrace, setActiveTrace} = useContext(ActiveTraceContext);
     const [activeStyle, setActiveStyle] = useState({});
