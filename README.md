@@ -33,6 +33,9 @@ This will start a websocket server on port 8765 (ASV connects to this port).
 
 # How does it work? 
 
+> [!NOTE]  
+> Currently, ASP does not extract stack information for each node in the system level trace. When this is implemented, ASV will be extended to allow the user to visualize the stack.
+
 Unlike the Diagnostic Log Viewer, ASV primarily visualizes information that has already been processed by the Automated System Processor. For this reason, ASV does not implement logic to process systems, instead, it implements logic to visualize the system level traces. 
 
 ![Alt text](docs/workflow_diagram.png)
