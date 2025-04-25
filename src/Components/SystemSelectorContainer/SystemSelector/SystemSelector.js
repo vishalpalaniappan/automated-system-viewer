@@ -49,12 +49,17 @@ export function SystemSelector () {
             (obj) => {return (obj.sysId === systemid && obj.version == version);}
         )[0];
         const _deployments = [];
-        system.deployments.forEach((deployment, index) => {
-            const id = deployment.deployment_id;
-            _deployments.push(<option key={id} value={id}>{id}</option>);
-        });
-        setDeployments(_deployments);
-        setActiveDeployment(system.deployments[0].deployment_id);
+        if (system && system.deployments && Array.isArray(system.deployments) && system.deployments.length > 0) {
+            system.deployments.forEach((deployment, index) => {
+                const id = deployment.deployment_id;
+                _deployments.push(<option key={id} value={id}>{id}</option>);
+            });
+            setDeployments(_deployments);
+            setActiveDeployment(system.deployments[0].deployment_id);
+        } else {
+            setDeployments([]);
+            setActiveDeployment(null);
+        }
     };
 
     // Callback functions when selector is manually changed
