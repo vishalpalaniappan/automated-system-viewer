@@ -23,6 +23,7 @@ export function TraceRow ({node}) {
     const [numberOfEvents, setNumberOfEvents] = useState();
 
     const {activeTrace, setActiveTrace} = useContext(ActiveTraceContext);
+    const [activeStyle, setActiveStyle] = useState({});
 
     useEffect(() => {
         if (node) {
@@ -46,8 +47,18 @@ export function TraceRow ({node}) {
         setActiveTrace(node);
     };
 
+    useEffect(() => {
+        if (activeTrace) {
+            if (activeTrace?.trace_id === node?.trace_id) {
+                setActiveStyle({borderLeft: "solid 7px green"});
+            } else {
+                setActiveStyle({});
+            }
+        }
+    }, [activeTrace, node]);
+
     return (
-        <div className="nodeRow" onClick={selectTrace}>
+        <div className="nodeRow" style={activeStyle} onClick={selectTrace}>
             <div className="d-flex flex-row">
                 <div >Starts at {startProgram}</div>
                 <div className="flex-grow-1 text-end">{duration} Seconds</div>

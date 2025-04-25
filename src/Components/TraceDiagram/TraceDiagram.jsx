@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 
 import {
     Controls,
@@ -11,10 +11,12 @@ import {
 } from "@xyflow/react";
 import PropTypes from "prop-types";
 
+import ActiveTraceContext from "../../Providers/ActiveTraceContext.js";
 import {getLayoutedElements} from "./DagreLayout.js";
 import {getNodesFromTrace} from "./helper.js";
 
 import "@xyflow/react/dist/style.css";
+
 
 const Flow = ({trace}) => {
     const {fitView} = useReactFlow();
@@ -28,10 +30,8 @@ const Flow = ({trace}) => {
     const onLayout = useCallback(
         (direction) => {
             const layouted = getLayoutedElements(nodes, edges, {direction});
-
             setNodes([...layouted.nodes]);
             setEdges([...layouted.edges]);
-
             fitView();
         },
         [nodes, edges]
@@ -39,8 +39,8 @@ const Flow = ({trace}) => {
 
     useEffect(() => {
         if (trace) {
+            // Set initial layout of nodes with a vertical layout
             const flowInfo = getNodesFromTrace(trace);
-
             const layouted = getLayoutedElements(
                 flowInfo.nodes,
                 flowInfo.edges,
@@ -93,9 +93,13 @@ Flow.propTypes = {
 export const TraceDiagram = ({traces}) => {
     const [traceList, setTraceList] = useState();
 
+    const {activeTrace, setActiveTrace} = useContext(ActiveTraceContext);
+
     useEffect(() => {
-        setTraceList(traces);
-    }, [traces]);
+        if (activeTrace) {
+            setTraceList(JSON.parse(activeTrace.traces));
+        }
+    }, [activeTrace]);
 
     return (
         <ReactFlowProvider>
