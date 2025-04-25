@@ -20,13 +20,21 @@ export function SystemSelector () {
 
     // Load system select dropdown from systemsList and set active system.
     const loadSystems = () => {
+        if (!systemsList || !Array.isArray(systemsList) || systemsList.length === 0) {
+            setSystems([]);
+            setVersions([]);
+            setDeployments([]);
+            return;
+        }
         const sysIds = [...new Set(systemsList.map((item) => item.sysId))];
         const _systems = [];
         sysIds.forEach((id, index) => {
             _systems.push(<option key={id} value={id}>{id}</option>);
         });
         setSystems(_systems);
-        loadVersions(sysIds[0]);
+        if (sysIds.length > 0) {
+            loadVersions(sysIds[0]);
+        }
     };
 
     // Given a system ID, load versions into select dropdown, set active version
