@@ -66,7 +66,7 @@ function ASPProviders ({children}) {
     const loadSystems = (systems) => {
         const _systems = [];
         systems.forEach((system, index) => {
-            _systems.push(new System(system, sendJsonMessage));
+            _systems.push(new System(system));
         });
         setSystemsList(_systems);
     };
