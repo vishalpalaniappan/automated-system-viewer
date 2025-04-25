@@ -29,6 +29,9 @@ export const getNodesFromTrace = (trace) => {
 
     trace.forEach((node, index) => {
         node.flowId = String(index) + node.adliExecutionId;
+
+        // The initial position doesn't matter because we will
+        // be using other algorithms to layout the nodes.
         const flowNode = {
             id: node.flowId,
             position: {x: 250, y: index * 200},
