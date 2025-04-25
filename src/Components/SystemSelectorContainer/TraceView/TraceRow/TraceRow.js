@@ -1,7 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
 
-import {formatTimestampToDateTime, getDurationinSeconds} from "./helper.js";
 import PropTypes from "prop-types";
+
+import ActiveTraceContext from "../../../../Providers/ActiveTraceContext.js";
+import {formatTimestampToDateTime, getDurationinSeconds} from "./helper.js";
 
 import "./TraceRow.scss";
 
@@ -15,11 +17,12 @@ TraceRow.propTypes = {
  * @return {JSX.Element}
  */
 export function TraceRow ({node}) {
-    const [traces, setTraces] = useState([]);
     const [startTs, setStartTs] = useState();
     const [startProgram, setStartProgram] = useState();
     const [duration, setDuration] = useState();
     const [numberOfEvents, setNumberOfEvents] = useState();
+
+    const {activeTrace, setActiveTrace} = useContext(ActiveTraceContext);
 
     useEffect(() => {
         if (node) {
@@ -33,8 +36,12 @@ export function TraceRow ({node}) {
         }
     }, [node]);
 
+    const selectTrace = (e) => {
+        setActiveTrace(node);
+    };
+
     return (
-        <div className="nodeRow">
+        <div className="nodeRow" onClick={selectTrace}>
             <div className="d-flex flex-row">
                 <div >Starts at {startProgram}</div>
                 <div className="flex-grow-1 text-end">{duration} Seconds</div>

@@ -1,6 +1,6 @@
 import {createContext} from "react";
 
 // This context stores the active system trace.
-const ActiveTrace = createContext();
+const ActiveTraceContext = createContext();
 
-export default ActiveTrace;
+export default ActiveTraceContext;

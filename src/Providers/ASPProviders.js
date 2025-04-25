@@ -8,6 +8,7 @@ import ActiveTracesContext from "./ActiveTracesContext";
 import FileTreeContext from "./FileTreeContext";
 import System from "./System";
 import SystemsContext from "./SystemsContext";
+import ActiveTraceContext from "./ActiveTraceContext";
 
 ASPProviders.propTypes = {
     children: PropTypes.object,
@@ -28,6 +29,7 @@ function ASPProviders ({children}) {
     const [systemsList, setSystemsList] = useState(null);
     const [activeSystem, setActiveSystem] = useState();
     const [activeTraces, setActiveTraces] = useState();
+    const [activeTrace, setActiveTrace] = useState();
 
     // Open websocket connection and reconnect when it closes
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(
@@ -95,15 +97,23 @@ function ASPProviders ({children}) {
         }
     }, [activeSystem]);
 
+    useEffect(() => {
+        if (activeTrace) {
+            console.log(activeTrace);
+        }
+    }, [activeTrace]);
+
     return (
         <>
-            <SystemsContext.Provider value={{systemsList}}>
-                <ActiveSystemContext.Provider value={{activeSystem, setActiveSystem}}>
-                    <ActiveTracesContext.Provider value={{activeTraces, setActiveTraces}}>
-                        {children}
-                    </ActiveTracesContext.Provider>
-                </ActiveSystemContext.Provider>
-            </SystemsContext.Provider>
+            <ActiveTraceContext.Provider value={{activeTrace, setActiveTrace}}>
+                <SystemsContext.Provider value={{systemsList}}>
+                    <ActiveSystemContext.Provider value={{activeSystem, setActiveSystem}}>
+                        <ActiveTracesContext.Provider value={{activeTraces, setActiveTraces}}>
+                            {children}
+                        </ActiveTracesContext.Provider>
+                    </ActiveSystemContext.Provider>
+                </SystemsContext.Provider>
+            </ActiveTraceContext.Provider>
         </>
     );
 };
