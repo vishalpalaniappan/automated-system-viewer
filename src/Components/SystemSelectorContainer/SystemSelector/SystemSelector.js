@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 
+import ActiveSystemContext from "../../../Providers/ActiveSystemContext";
 import SystemsContext from "../../../Providers/SystemsContext";
 
 import "./SystemSelector.scss";
@@ -10,6 +11,7 @@ import "./SystemSelector.scss";
  */
 export function SystemSelector () {
     const {systemsList} = useContext(SystemsContext);
+    const {activeSystem, setActiveSystem} = useContext(ActiveSystemContext);
 
     const [systems, setSystems] = useState([]);
     const [versions, setVersions] = useState([]);
@@ -37,7 +39,7 @@ export function SystemSelector () {
         }
     };
 
-    // Given a system ID, load versions into select dropdown, set active version
+    // Given a sys ID, load versions into select dropdown and set active version
     const loadVersions = (systemid) => {
         setActiveSystemId(systemid);
         const filteredSystems = systemsList.filter((obj) => {return obj.sysId === systemid;});
@@ -53,17 +55,23 @@ export function SystemSelector () {
     // Given a system id and version load deployments and set active deployment.
     const loadDeployments = (systemid, version) => {
         setActiveVersion(version);
-        const system = systemsList.filter(
+        const sys = systemsList.filter(
             (obj) => {return (obj.sysId === systemid && obj.version == version);}
         )[0];
         const _deployments = [];
-        if (system && system.deployments && Array.isArray(system.deployments) && system.deployments.length > 0) {
-            system.deployments.forEach((deployment, index) => {
+        const sysDeployments = sys.deployments;
+        if (sys && sysDeployments && Array.isArray(sysDeployments) && sysDeployments.length > 0) {
+            sysDeployments.forEach((deployment, index) => {
                 const id = deployment.deployment_id;
                 _deployments.push(<option key={id} value={id}>{id}</option>);
             });
             setDeployments(_deployments);
-            setActiveDeployment(system.deployments[0].deployment_id);
+            setActiveDeployment(sysDeployments[0].deployment_id);
+            setActiveSystem({
+                id: systemid,
+                version: version,
+                deployment: sysDeployments[0].deployment_id,
+            });
         } else {
             setDeployments([]);
             setActiveDeployment(null);
@@ -81,6 +89,11 @@ export function SystemSelector () {
 
     const selectDeployment = (e) => {
         setActiveDeployment(e.target.value);
+        setActiveSystem({
+            id: activeSystemId,
+            version: activeVersion,
+            deployment: e.target.value,
+        });
     };
 
     // React to changes in systems, system and version

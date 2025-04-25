@@ -3,7 +3,9 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
-import FileTreeContext from "./FileTreeContext";
+import ActiveSystemContext from "./ActiveSystemContext";
+import ActiveTraceContext from "./ActiveTraceContext";
+import ActiveTracesContext from "./ActiveTracesContext";
 import System from "./System";
 import SystemsContext from "./SystemsContext";
 
@@ -23,8 +25,10 @@ function ASPProviders ({children}) {
     // State that holds the history of received messages
     const [messageHistory, setMessageHistory] = useState([]);
 
-    const [fileTree, setFileTree] = useState();
     const [systemsList, setSystemsList] = useState(null);
+    const [activeSystem, setActiveSystem] = useState();
+    const [activeTraces, setActiveTraces] = useState();
+    const [activeTrace, setActiveTrace] = useState();
 
     // Open websocket connection and reconnect when it closes
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(
@@ -62,7 +66,7 @@ function ASPProviders ({children}) {
         }
     }, [lastJsonMessage]);
 
-
+    // Load the systems 
     const loadSystems = (systems) => {
         const _systems = [];
         systems.forEach((system, index) => {
@@ -74,16 +78,41 @@ function ASPProviders ({children}) {
     const handleMessage = (msg) => {
         if (msg.queryType == "GET_SYSTEMS") {
             loadSystems(msg.response);
+        } else if (msg.queryType == "GET_TRACES") {
+            setActiveTraces(msg.response);
         }
     };
 
+    useEffect(() => {
+        if (activeSystem) {
+            sendJsonMessage({
+                queryType: "GET_TRACES",
+                data: {
+                    "systemId": activeSystem.id,
+                    "systemVersion": activeSystem.version,
+                    "deploymentId": activeSystem.deployment,
+                },
+            });
+        }
+    }, [activeSystem]);
+
+    useEffect(() => {
+        if (activeTrace) {
+            console.log(activeTrace);
+        }
+    }, [activeTrace]);
+
     return (
         <>
-            <FileTreeContext.Provider value={{fileTree}}>
+            <ActiveTraceContext.Provider value={{activeTrace, setActiveTrace}}>
                 <SystemsContext.Provider value={{systemsList}}>
-                    {children}
+                    <ActiveSystemContext.Provider value={{activeSystem, setActiveSystem}}>
+                        <ActiveTracesContext.Provider value={{activeTraces, setActiveTraces}}>
+                            {children}
+                        </ActiveTracesContext.Provider>
+                    </ActiveSystemContext.Provider>
                 </SystemsContext.Provider>
-            </FileTreeContext.Provider>
+            </ActiveTraceContext.Provider>
         </>
     );
 };
