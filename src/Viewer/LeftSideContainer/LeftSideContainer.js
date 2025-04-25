@@ -1,15 +1,16 @@
 import React, {useRef, useState} from "react";
 
 import {Diagram3, Gear, Keyboard} from "react-bootstrap-icons";
-import { SystemSelectorContainer } from "../../Components/SystemSelectorContainer/SystemSelectorContainer";
 
-import "./SideContainer.scss";
+import {SystemSelectorContainer} from "../../Components/SystemSelectorContainer/SystemSelectorContainer";
+
+import "./LeftSideContainer.scss";
 
 /**
- * Renders the side menu and accordian containers.
+ * Renders the left side menu and accordian containers.
  * @return {JSX.Element}
  */
-export function SideContainer () {
+export function LeftSideContainer () {
     const [activeMenu, setActiveMenu] = useState(1);
 
     const accordian = useRef();

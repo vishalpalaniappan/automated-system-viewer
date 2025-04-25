@@ -1,7 +1,8 @@
 import React from "react";
 
 import {FileViewer} from "./FileViewer/FileViewer";
-import {SideContainer} from "./SideContainer/SideContainer";
+import {LeftSideContainer} from "./LeftSideContainer/LeftSideContainer";
+import {RightSideContainer} from "./RightSideContainer/RightSideContainer";
 
 import "./Viewer.scss";
 
@@ -15,10 +16,13 @@ export function Viewer () {
             <div className="menu-container"></div>
             <div className="body-container d-flex flex-row">
                 <div className="d-flex h-100">
-                    <SideContainer />
+                    <LeftSideContainer />
                 </div>
                 <div className="d-flex flex-grow-1 h-100 overflow-hidden">
                     <FileViewer />
+                </div>
+                <div className="d-flex h-100">
+                    <RightSideContainer />
                 </div>
             </div>
             <div className="status-bar-container">
