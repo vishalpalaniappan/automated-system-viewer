@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
+import ActiveSystemContext from "./ActiveSystemContext";
 import FileTreeContext from "./FileTreeContext";
 import System from "./System";
 import SystemsContext from "./SystemsContext";
@@ -25,6 +26,7 @@ function ASPProviders ({children}) {
 
     const [fileTree, setFileTree] = useState();
     const [systemsList, setSystemsList] = useState(null);
+    const [activeSystem, setActiveSystem] = useState();
 
     // Open websocket connection and reconnect when it closes
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(
@@ -77,11 +79,19 @@ function ASPProviders ({children}) {
         }
     };
 
+    useEffect(() => {
+        if (activeSystem) {
+            console.log(activeSystem);
+        }
+    }, [activeSystem]);
+
     return (
         <>
             <FileTreeContext.Provider value={{fileTree}}>
                 <SystemsContext.Provider value={{systemsList}}>
-                    {children}
+                    <ActiveSystemContext.Provider value={{activeSystem, setActiveSystem}}>
+                        {children}
+                    </ActiveSystemContext.Provider>
                 </SystemsContext.Provider>
             </FileTreeContext.Provider>
         </>
