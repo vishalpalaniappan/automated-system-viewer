@@ -22,6 +22,7 @@ export function TraceView () {
             });
             const _nodes = [];
             for (const node of traces) {
+                node.traceList = JSON.parse(node.traces);
                 _nodes.push(<TraceRow key={node.trace_id} node={node} />);
             }
             setNodes([_nodes]);
