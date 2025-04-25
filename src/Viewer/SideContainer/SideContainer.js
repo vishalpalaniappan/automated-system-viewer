@@ -1,6 +1,7 @@
 import React, {useRef, useState} from "react";
 
 import {Diagram3, Gear, Keyboard} from "react-bootstrap-icons";
+import { SystemSelector } from "../../Components/SystemSelector/SystemSelector";
 
 import "./SideContainer.scss";
 
@@ -51,7 +52,7 @@ export function SideContainer () {
 
     const getActiveMenuComponent = () => {
         if (activeMenu === 1) {
-            return <></>;
+            return <SystemSelector/>;
         } else if (activeMenu === 2) {
             return <></>;
         } else if (activeMenu === 3) {

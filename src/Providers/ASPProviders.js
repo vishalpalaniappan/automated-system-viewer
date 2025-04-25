@@ -5,7 +5,7 @@ import useWebSocket, {ReadyState} from "react-use-websocket";
 
 import FileTreeContext from "./FileTreeContext";
 import System from "./System";
-import UniqueTraceContext from "./UniqueTraceContext";
+import SystemsContext from "./SystemsContext";
 
 ASPProviders.propTypes = {
     children: PropTypes.object,
@@ -69,6 +69,7 @@ function ASPProviders ({children}) {
         systems.forEach((system, index) => {
             systemsList.push(new System(system, sendJsonMessage));
         });
+        setSystemsList([...systemsList]);
     };
 
     const setSystem = (msg) => {
@@ -91,9 +92,9 @@ function ASPProviders ({children}) {
     return (
         <>
             <FileTreeContext.Provider value={{fileTree}}>
-                <UniqueTraceContext.Provider value={{uniqueTrace}}>
+                <SystemsContext.Provider value={{systemsList}}>
                     {children}
-                </UniqueTraceContext.Provider>
+                </SystemsContext.Provider>
             </FileTreeContext.Provider>
         </>
     );
