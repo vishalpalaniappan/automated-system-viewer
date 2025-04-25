@@ -78,19 +78,7 @@ const Flow = ({trace}) => {
             fitView
         >
             <Controls />
-
-            <Panel position="top-right">
-                <select onChange={onChange} data-testid="colormode-select">
-                    <option value="dark">dark</option>
-                    <option value="light">light</option>
-                    <option value="system">system</option>
-                </select>
-            </Panel>
-
-            <Panel position="top-left">
-                <button onClick={() => onLayout("TB")}>vertical layout</button>
-                <button onClick={() => onLayout("LR")}>horizontal layout</button>
-            </Panel>
+            
         </ReactFlow>
     );
 };
