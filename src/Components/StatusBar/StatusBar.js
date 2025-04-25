@@ -18,7 +18,7 @@ export function StatusBar () {
         [ReadyState.CONNECTING]: "Attempting Connecting",
         [ReadyState.OPEN]: "Open",
         [ReadyState.CLOSING]: "Closing",
-        [ReadyState.CLOSED]: "Connection Failed",
+        [ReadyState.CLOSED]: "Connection Closed",
         [ReadyState.UNINSTANTIATED]: "Uninstantiated",
     }[readyState];
 
