@@ -23,15 +23,27 @@ export function StatusBar () {
     }[readyState];
 
     useEffect(() => {
-        console.log(readyState);
-        console.debug(`Connection state: ${connectionStatus}`);
         setWebsocketState(connectionStatus);
     }, [readyState]);
 
+    const statusBarStyle = {
+        width: "100%",
+        height: "100%",
+        color: "white",
+        paddingRight: "5px",
+    };
+
+    const statusMessageStyle = {
+        textAlign: "center",
+        float: "right",
+        marginTop: "3px",
+        fontSize: "12px",
+    };
+
 
     return (
-        <div style={{width: "100%", height: "100%", color: "white", paddingRight: "5px"}}>
-            <div style={{textAlign: "center", float: "right", marginTop: "3px", fontSize: "12px"}}>
+        <div style={statusBarStyle}>
+            <div style={statusMessageStyle}>
                 Websocket Connection: {websocketState}
             </div>
         </div>

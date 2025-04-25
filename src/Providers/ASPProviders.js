@@ -100,12 +100,6 @@ function ASPProviders ({children}) {
         }
     }, [activeSystem]);
 
-    useEffect(() => {
-        if (activeTrace) {
-            console.log(activeTrace);
-        }
-    }, [activeTrace]);
-
     return (
         <WebsocketConnectionStateContext.Provider value={{readyState}}>
             <ActiveNodeContext.Provider value={{activeNode, setActiveNode}}>
