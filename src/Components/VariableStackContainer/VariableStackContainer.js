@@ -1,5 +1,6 @@
-import React, {useEffect, useRef} from "react";
+import React, {useContext, useEffect, useState, useRef} from "react";
 
+import ActiveTraceContext from "../../Providers/ActiveTraceContext";
 import {VariableContainer} from "./VariableContainer/VariableStackContainer";
 import {VerticleHandle} from "./VerticleHandle/VerticleHandle";
 
@@ -11,6 +12,10 @@ import "./VariableStackContainer.scss";
  */
 export function VariableStackContainer () {
     const variableContainerRef = useRef();
+    const {activeTrace, setActiveTrace} = useContext(ActiveTraceContext);
+
+    const [traceInput, setTraceInput] = useState({});
+    const [traceOutput, setTraceOutput] = useState({});
 
     const traceInputRef = useRef();
     const traceOutputRef = useRef();
@@ -32,16 +37,25 @@ export function VariableStackContainer () {
         redrawContainers();
     }, []);
 
+    useEffect(() => {
+        if (activeTrace) {
+            const trace = JSON.parse(activeTrace.traces);
+            console.log(trace);
+            setTraceInput(trace[0].adliValue);
+            setTraceOutput(trace[trace.length -1].adliValue);
+        }
+    }, [activeTrace]);
+
     return (
         <div ref={variableContainerRef} className="variable-container w-100 d-flex flex-column">
             <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>Trace Input</div>
             <div className="section" ref={traceInputRef}>
-                <VariableContainer variables={{"a": 1}}/>
+                <VariableContainer variables={traceInput}/>
             </div>
             <VerticleHandle topDiv={traceInputRef} bottomDiv={traceOutputRef}/>
             <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>Trace Output</div>
             <div className="section" ref={traceOutputRef}>
-                <VariableContainer variables={{"a": 1}}/>
+                <VariableContainer variables={traceOutput}/>
             </div>
             <VerticleHandle topDiv={traceOutputRef} bottomDiv={nodeInputRef}/>
             <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
