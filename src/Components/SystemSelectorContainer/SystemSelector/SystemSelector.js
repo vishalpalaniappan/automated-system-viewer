@@ -45,21 +45,19 @@ export function SystemSelector () {
     // Given a system id and version load deployments and set active deployment.
     const loadDeployments = (systemid, version) => {
         setActiveVersion(version);
-        const filteredSystems = systemsList.filter(
-            (obj) => {
-                return (obj.sysId === systemid && obj.version == version);
-            }
-        );
-        const deployments = filteredSystems[0].deployments;
+        const system = systemsList.filter(
+            (obj) => {return (obj.sysId === systemid && obj.version == version);}
+        )[0];
         const _deployments = [];
-        deployments.forEach((deployment, index) => {
+        system.deployments.forEach((deployment, index) => {
             const id = deployment.deployment_id;
             _deployments.push(<option key={id} value={id}>{id}</option>);
         });
         setDeployments(_deployments);
-        setActiveDeployment(deployments[0].deployment_id);
+        setActiveDeployment(system.deployments[0].deployment_id);
     };
 
+    // Callback functions when selector is manually changed
     const selectVersion = (e) => {
         loadDeployments(activeSystemId, e.target.value);
     };
