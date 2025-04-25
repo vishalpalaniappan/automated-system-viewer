@@ -1,5 +1,7 @@
 import React, {useRef, useState} from "react";
 
+import {VariableStackContainer} from "../../Components/VariableStackContainer/VariableStackContainer";
+
 import "./RightSideContainer.scss";
 
 /**
@@ -48,7 +50,7 @@ export function RightSideContainer () {
         <div className="side-container d-flex flex-row">
             <div className="handle" ref={handle} onMouseDown={handleMouseDown}></div>
             <div className="accordian" ref={accordian} style={{width: ACCORDIAN_WIDTH+"px"}}>
-                
+                <VariableStackContainer />
             </div>
         </div>
     );
