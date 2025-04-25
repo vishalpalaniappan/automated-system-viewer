@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 
 import {TraceDiagram} from "../../Components/TraceDiagram/TraceDiagram";
-import systemtrace from "./systemtrace.json";
 
 import "./FileViewer.scss";
 
@@ -12,7 +11,7 @@ import "./FileViewer.scss";
 export function FileViewer () {
     return (
         <>
-            <TraceDiagram traces={systemtrace} />
+            <TraceDiagram />
         </>
     );
 }

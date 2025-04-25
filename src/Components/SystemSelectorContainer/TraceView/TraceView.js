@@ -12,6 +12,7 @@ import "./TraceView.scss";
  */
 export function TraceView () {
     const {activeTraces, setActiveTraces} = useContext(ActiveTracesContext);
+    const {activeTrace, setActiveTrace} = useContext(ActiveTraceContext);
 
     const [nodes, setNodes] = useState([]);
 
@@ -24,6 +25,7 @@ export function TraceView () {
             for (const node of traces) {
                 _nodes.push(<TraceRow key={node.trace_id} node={node} />);
             }
+            setActiveTrace(traces[0]);
             setNodes([_nodes]);
         }
     }, [activeTraces]);

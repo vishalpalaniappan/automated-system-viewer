@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useContext, useState} from "react";
 
 import {
     Controls,
@@ -11,6 +11,7 @@ import {
 } from "@xyflow/react";
 import PropTypes from "prop-types";
 
+import ActiveTraceContext from "../../Providers/ActiveTraceContext.js";
 import {getLayoutedElements} from "./DagreLayout.js";
 import {getNodesFromTrace} from "./helper.js";
 
@@ -93,9 +94,13 @@ Flow.propTypes = {
 export const TraceDiagram = ({traces}) => {
     const [traceList, setTraceList] = useState();
 
+    const {activeTrace, setActiveTrace} = useContext(ActiveTraceContext);
+
     useEffect(() => {
-        setTraceList(traces);
-    }, [traces]);
+        if (activeTrace) {
+            setTraceList(JSON.parse(activeTrace.traces));
+        }
+    }, [activeTrace]);
 
     return (
         <ReactFlowProvider>
