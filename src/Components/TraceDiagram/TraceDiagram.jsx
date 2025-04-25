@@ -17,6 +17,7 @@ import {getLayoutedElements} from "./DagreLayout.js";
 import {getNodesFromTrace} from "./helper.js";
 
 import "@xyflow/react/dist/style.css";
+import "./TraceDiagram.scss";
 
 
 const Flow = ({trace}) => {

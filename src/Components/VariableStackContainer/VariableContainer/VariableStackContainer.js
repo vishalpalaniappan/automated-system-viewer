@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import "./VariableStackContainer.scss";
 
 VariableContainer.propTypes = {
+    type: PropTypes.string,
     variables: PropTypes.object,
 };
 
@@ -13,7 +14,7 @@ VariableContainer.propTypes = {
  * Contains the variable stack container.
  * @return {JSX.Element}
  */
-export function VariableContainer ({variables}) {
+export function VariableContainer ({type, variables}) {
     const variableStackTheme = {
         base00: "#252526",
         base01: "#ddd",
@@ -33,8 +34,19 @@ export function VariableContainer ({variables}) {
         base0F: "#a7ce8a",
     };
 
+    const getStyle = () => {
+        const hasValue = Object.keys(variables).length > 0;
+        if (type == "node" && hasValue) {
+            return {
+                border: "solid 1px #ff6767",
+            };
+        } else if (type == "trace" && hasValue) {
+            return {};
+        }
+    };
+
     return (
-        <div className="variableStackContainer w-100 h-100 ">
+        <div className="variableStackContainer w-100 h-100" style={getStyle()}>
             {Object.keys(variables).length > 0 &&
                 <ReactJsonView
                     src={variables}

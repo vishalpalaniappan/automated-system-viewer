@@ -73,27 +73,27 @@ export function VariableStackContainer () {
     return (
         <div ref={variableContainerRef} className="variable-container w-100 d-flex flex-column">
             <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>Trace Input</div>
-            <div className="section" ref={traceInputRef}>
-                <VariableContainer variables={traceInput}/>
+            <div className="section"  ref={traceInputRef}>
+                <VariableContainer type={"trace"} variables={traceInput}/>
             </div>
             <VerticleHandle topDiv={traceInputRef} bottomDiv={traceOutputRef}/>
             <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>Trace Output</div>
             <div className="section" ref={traceOutputRef}>
-                <VariableContainer variables={traceOutput}/>
+                <VariableContainer type={"trace"} variables={traceOutput}/>
             </div>
             <VerticleHandle topDiv={traceOutputRef} bottomDiv={nodeInputRef}/>
             <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
                 Selected Node Input
             </div>
             <div className="section" ref={nodeInputRef}>
-                <VariableContainer variables={nodeInput}/>
+                <VariableContainer type={"node"} variables={nodeInput}/>
             </div>
             <VerticleHandle topDiv={nodeInputRef} bottomDiv={nodeOutputRef}/>
             <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
                 Selected Node Output
             </div>
             <div className="section" ref={nodeOutputRef}>
-                <VariableContainer variables={nodeOutput}/>
+                <VariableContainer type={"node"} variables={nodeOutput}/>
             </div>
         </div>
     );
