@@ -3,7 +3,7 @@ import React, {useContext} from "react";
 import ReactJsonView from "@microlink/react-json-view";
 import PropTypes from "prop-types";
 
-import "./VariableStackContainer.scss";
+import "./VariableContainer.scss";
 
 VariableContainer.propTypes = {
     type: PropTypes.string,

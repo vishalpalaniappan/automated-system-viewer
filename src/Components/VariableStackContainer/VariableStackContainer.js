@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 
 import ActiveNodeContext from "../../Providers/ActiveNodeContext";
 import ActiveTraceContext from "../../Providers/ActiveTraceContext";
-import {VariableContainer} from "./VariableContainer/VariableStackContainer";
+import {VariableContainer} from "./VariableContainer/VariableContainer";
 import {VerticleHandle} from "./VerticleHandle/VerticleHandle";
 
 import "./VariableStackContainer.scss";
@@ -72,12 +72,16 @@ export function VariableStackContainer () {
 
     return (
         <div ref={variableContainerRef} className="variable-container w-100 d-flex flex-column">
-            <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>Trace Input</div>
-            <div className="section"  ref={traceInputRef}>
+            <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
+                Trace Input
+            </div>
+            <div className="section" ref={traceInputRef}>
                 <VariableContainer type={"trace"} variables={traceInput}/>
             </div>
             <VerticleHandle topDiv={traceInputRef} bottomDiv={traceOutputRef}/>
-            <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>Trace Output</div>
+            <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
+                Trace Output
+            </div>
             <div className="section" ref={traceOutputRef}>
                 <VariableContainer type={"trace"} variables={traceOutput}/>
             </div>
