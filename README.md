@@ -1,4 +1,4 @@
-# automated-system-viewer
+# Automated System Viewer
 This tool enables automatic system level visualization using CDL files as part of the Automated System Processor (ASP) framework.
 
 # Developing
@@ -23,7 +23,7 @@ After cloning the repo, navigate to components/asp and run the system processor 
 ```shell
 python3 SystemProcessor.py
 ```
-This will process all the log files in the system logs folder and it will save the generated traces to the ASP database.
+This will process all the log files in the system logs folder and it will save the extracted traces to the ASP database.
 
 To start the websocket server that ASV connects to, navigate to components/query_handler and run the following command:
 ```shell
