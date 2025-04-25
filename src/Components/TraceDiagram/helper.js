@@ -41,6 +41,10 @@ export const getNodesFromTrace = (trace) => {
             flowNode.type = "input";
         }
 
+        if (index == trace.length - 1) {
+            flowNode.type = "output";
+        }
+
         if (index > 0) {
             const prevNode = trace[index - 1];
             const edge = {
