@@ -16,9 +16,12 @@ export function TraceView () {
 
     useEffect(() => {
         if (activeTraces) {
+            const traces = activeTraces.sort(function (a, b) {
+                return a.start_ts - b.start_ts;
+            });
             const _nodes = [];
-            for (const node of activeTraces) {
-                _nodes.push(<TraceRow node={node} />);
+            for (const node of traces) {
+                _nodes.push(<TraceRow key={node.trace_id} node={node} />);
             }
             setNodes([_nodes]);
         }
