@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
 import FileTreeContext from "./FileTreeContext";
-import UniqueTraceContext from "./UniqueTraceContext";
+import System from "./System";
+import SystemsContext from "./SystemsContext";
 
 ASPProviders.propTypes = {
     children: PropTypes.object,
@@ -23,7 +24,7 @@ function ASPProviders ({children}) {
     const [messageHistory, setMessageHistory] = useState([]);
 
     const [fileTree, setFileTree] = useState();
-    const [uniqueTrace, setUniqueTrace] = useState();
+    const [systemsList, setSystemsList] = useState(null);
 
     // Open websocket connection and reconnect when it closes
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(
@@ -47,9 +48,9 @@ function ASPProviders ({children}) {
     useEffect(() => {
         console.debug(`Connection state: ${connectionStatus}`);
         if (readyState === ReadyState.OPEN) {
-            console.log("RUNNING");
-            sendJsonMessage({code: 2});
-            sendJsonMessage({code: 1});
+            sendJsonMessage(
+                {queryType: "GET_SYSTEMS"}
+            );
         }
     }, [readyState]);
 
@@ -62,22 +63,26 @@ function ASPProviders ({children}) {
     }, [lastJsonMessage]);
 
 
+    const loadSystems = (systems) => {
+        const _systems = [];
+        systems.forEach((system, index) => {
+            _systems.push(new System(system));
+        });
+        setSystemsList(_systems);
+    };
+
     const handleMessage = (msg) => {
-        if (msg.code == 1) {
-            console.log("Unique System Traces:", msg.response);
-            setUniqueTrace(msg.response);
-        } else if (msg.code == 2) {
-            console.log("System File Trees:", msg.response);
-            setFileTree(msg.response);
+        if (msg.queryType == "GET_SYSTEMS") {
+            loadSystems(msg.response);
         }
     };
 
     return (
         <>
             <FileTreeContext.Provider value={{fileTree}}>
-                <UniqueTraceContext.Provider value={{uniqueTrace}}>
+                <SystemsContext.Provider value={{systemsList}}>
                     {children}
-                </UniqueTraceContext.Provider>
+                </SystemsContext.Provider>
             </FileTreeContext.Provider>
         </>
     );

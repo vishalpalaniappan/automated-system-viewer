@@ -1,6 +1,6 @@
 import {createContext} from "react";
 
 // This context stores the unique traces extracted by system processor.
-const UniqueTraceContext = createContext();
+const SystemsContext = createContext();
 
-export default UniqueTraceContext;
+export default SystemsContext;

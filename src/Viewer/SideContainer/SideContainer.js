@@ -1,6 +1,7 @@
 import React, {useRef, useState} from "react";
 
 import {Diagram3, Gear, Keyboard} from "react-bootstrap-icons";
+import { SystemSelectorContainer } from "../../Components/SystemSelectorContainer/SystemSelectorContainer";
 
 import "./SideContainer.scss";
 
@@ -15,7 +16,7 @@ export function SideContainer () {
     const handle = useRef();
 
     const SIDE_MENU_WIDTH = 50;
-    const ACCORDIAN_WIDTH = 200;
+    const ACCORDIAN_WIDTH = 400;
     const MIN_EDITOR_WIDTH = 400;
     const MIN_ACCORDIAN_WIDTH = 200;
     const MAX_ACCORDIAN_WIDTH = document.body.clientWidth - SIDE_MENU_WIDTH - MIN_EDITOR_WIDTH;
@@ -51,7 +52,7 @@ export function SideContainer () {
 
     const getActiveMenuComponent = () => {
         if (activeMenu === 1) {
-            return <></>;
+            return <SystemSelectorContainer/>;
         } else if (activeMenu === 2) {
             return <></>;
         } else if (activeMenu === 3) {
