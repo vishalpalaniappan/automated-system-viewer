@@ -76,12 +76,23 @@ function ASPProviders ({children}) {
     const handleMessage = (msg) => {
         if (msg.queryType == "GET_SYSTEMS") {
             loadSystems(msg.response);
+        } else if (msg.queryType == "GET_TRACES") {
+            console.log(msg);
         }
     };
 
     useEffect(() => {
         if (activeSystem) {
-            console.log(activeSystem);
+            sendJsonMessage(
+                {
+                    queryType: "GET_TRACES",
+                    data: {
+                        "systemId": activeSystem.id,
+                        "systemVersion": activeSystem.version,
+                        "deploymentId": activeSystem.deployment,
+                    },
+                }
+            );
         }
     }, [activeSystem]);
 
