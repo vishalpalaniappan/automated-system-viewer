@@ -14,7 +14,7 @@ class System {
         this.programs = systemInfo.programs;
         this.deployments = systemInfo.deployments;
 
-        console.log("Created:", this.sysId, this.version);
+        console.log("Created System:", this.sysId, this.version);
     }
 }
 

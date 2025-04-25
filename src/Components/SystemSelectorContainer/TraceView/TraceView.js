@@ -1,6 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
-
-import SystemsContext from "../../../Providers/SystemsContext";
+import React from "react";
 
 import "./TraceView.scss";
 
@@ -9,17 +7,7 @@ import "./TraceView.scss";
  * @return {JSX.Element}
  */
 export function TraceView () {
-    const {systemsList} = useContext(SystemsContext);
-
-    const [systems, setSystems] = useState();
-
-    useEffect(() => {
-        console.log(systemsList);
-    }, [systemsList]);
-
-
     return (
-        <div>
-        </div>
+        <></>
     );
 }

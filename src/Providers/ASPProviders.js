@@ -24,7 +24,6 @@ function ASPProviders ({children}) {
     const [messageHistory, setMessageHistory] = useState([]);
 
     const [fileTree, setFileTree] = useState();
-    const [uniqueTrace, setUniqueTrace] = useState();
     const [systemsList, setSystemsList] = useState(null);
 
     // Open websocket connection and reconnect when it closes
@@ -49,7 +48,6 @@ function ASPProviders ({children}) {
     useEffect(() => {
         console.debug(`Connection state: ${connectionStatus}`);
         if (readyState === ReadyState.OPEN) {
-            console.log("RUNNING");
             sendJsonMessage(
                 {queryType: "GET_SYSTEMS"}
             );
@@ -68,7 +66,6 @@ function ASPProviders ({children}) {
     const loadSystems = (systems) => {
         const _systems = [];
         systems.forEach((system, index) => {
-            console.log("Requesting: ", system.system_id, system.version);
             _systems.push(new System(system, sendJsonMessage));
         });
         setSystemsList(_systems);
