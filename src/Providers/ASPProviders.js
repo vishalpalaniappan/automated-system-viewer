@@ -4,11 +4,10 @@ import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
 import ActiveSystemContext from "./ActiveSystemContext";
+import ActiveTraceContext from "./ActiveTraceContext";
 import ActiveTracesContext from "./ActiveTracesContext";
-import FileTreeContext from "./FileTreeContext";
 import System from "./System";
 import SystemsContext from "./SystemsContext";
-import ActiveTraceContext from "./ActiveTraceContext";
 
 ASPProviders.propTypes = {
     children: PropTypes.object,
@@ -67,7 +66,7 @@ function ASPProviders ({children}) {
         }
     }, [lastJsonMessage]);
 
-
+    // Load the systems 
     const loadSystems = (systems) => {
         const _systems = [];
         systems.forEach((system, index) => {
