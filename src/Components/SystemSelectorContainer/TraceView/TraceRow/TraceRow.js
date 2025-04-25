@@ -50,13 +50,13 @@ export function TraceRow ({node}) {
 
     useEffect(() => {
         if (activeTrace) {
-            if (activeTrace.trace_id == node.trace_id) {
+            if (activeTrace.trace_id === node.trace_id) {
                 setActiveStyle({borderLeft: "solid 7px green"});
             } else {
                 setActiveStyle({});
             }
         }
-    }, [activeTrace]);
+    }, [activeTrace, node]);
 
     return (
         <div className="nodeRow" style={activeStyle} onClick={selectTrace}>
