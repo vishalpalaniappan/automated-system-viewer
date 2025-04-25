@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
 import FileTreeContext from "./FileTreeContext";
+import System from "./System";
 import UniqueTraceContext from "./UniqueTraceContext";
 
 ASPProviders.propTypes = {
@@ -24,6 +25,7 @@ function ASPProviders ({children}) {
 
     const [fileTree, setFileTree] = useState();
     const [uniqueTrace, setUniqueTrace] = useState();
+    const [systemsList, setSystemsList] = useState([]);
 
     // Open websocket connection and reconnect when it closes
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(
@@ -63,9 +65,16 @@ function ASPProviders ({children}) {
     }, [lastJsonMessage]);
 
 
+    const loadSystems = (systems) => {
+        systems.forEach((system, index) => {
+            systemsList.push(new System(system));
+        });
+    };
+
     const handleMessage = (msg) => {
         if (msg.queryType == "GET_SYSTEMS") {
-            console.log("Systems:", msg.response);
+            loadSystems(msg.response);
+            console.log(systemsList);
         }
     };
 
