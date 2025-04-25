@@ -35,17 +35,19 @@ export function VariableContainer ({variables}) {
 
     return (
         <div className="variableStackContainer w-100 h-100 ">
-            <ReactJsonView
-                src={variables}
-                theme={variableStackTheme}
-                collapsed={1}
-                name={"local"}
-                groupArraysAfterLength={100}
-                sortKeys={true}
-                displayDataTypes={false}
-                quotesOnKeys={true}
-                collapseStringsAfterLength={30}>
-            </ReactJsonView>
+            {Object.keys(variables).length > 0 &&
+                <ReactJsonView
+                    src={variables}
+                    theme={variableStackTheme}
+                    collapsed={1}
+                    name={"value"}
+                    groupArraysAfterLength={100}
+                    sortKeys={true}
+                    displayDataTypes={false}
+                    quotesOnKeys={true}
+                    collapseStringsAfterLength={30}>
+                </ReactJsonView>
+            }
         </div>
     );
 }

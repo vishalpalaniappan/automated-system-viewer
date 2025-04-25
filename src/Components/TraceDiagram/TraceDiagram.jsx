@@ -11,6 +11,7 @@ import {
 } from "@xyflow/react";
 import PropTypes from "prop-types";
 
+import ActiveNodeContext from "../../Providers/ActiveNodeContext.js";
 import ActiveTraceContext from "../../Providers/ActiveTraceContext.js";
 import {getLayoutedElements} from "./DagreLayout.js";
 import {getNodesFromTrace} from "./helper.js";
@@ -23,6 +24,8 @@ const Flow = ({trace}) => {
     const [colorMode, setColorMode] = useState("dark");
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+
+    const {activeNode, setActiveNode}= useContext(ActiveNodeContext);
 
     const onChange = (evt) =>
         setColorMode(evt.target.value);
@@ -55,7 +58,11 @@ const Flow = ({trace}) => {
     }, [trace]);
 
     const onNodeClick = (e, node) => {
-        console.log(e, node);
+        setActiveNode(node);
+    };
+
+    const onPanelClick = (e, node) => {
+        setActiveNode(node);
     };
 
     return (
@@ -66,6 +73,7 @@ const Flow = ({trace}) => {
             onEdgesChange={onEdgesChange}
             colorMode={colorMode}
             onNodeClick={onNodeClick}
+            onPaneClick={onPanelClick}
             fitView
         >
             <Controls />

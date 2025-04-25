@@ -1,5 +1,6 @@
-import React, {useContext, useEffect, useState, useRef} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 
+import ActiveNodeContext from "../../Providers/ActiveNodeContext";
 import ActiveTraceContext from "../../Providers/ActiveTraceContext";
 import {VariableContainer} from "./VariableContainer/VariableStackContainer";
 import {VerticleHandle} from "./VerticleHandle/VerticleHandle";
@@ -13,9 +14,12 @@ import "./VariableStackContainer.scss";
 export function VariableStackContainer () {
     const variableContainerRef = useRef();
     const {activeTrace, setActiveTrace} = useContext(ActiveTraceContext);
+    const {activeNode, setActiveNode} = useContext(ActiveNodeContext);
 
     const [traceInput, setTraceInput] = useState({});
     const [traceOutput, setTraceOutput] = useState({});
+    const [nodeInput, setNodeInput] = useState({});
+    const [nodeOutput, setNodeOutput] = useState({});
 
     const traceInputRef = useRef();
     const traceOutputRef = useRef();
@@ -38,9 +42,29 @@ export function VariableStackContainer () {
     }, []);
 
     useEffect(() => {
+        if (activeNode) {
+            const node = activeNode.sourceNode;
+            if (node.type == "adli_output") {
+                setNodeInput({});
+                setNodeOutput(node.adliValue);
+            } else if (node.type == "adli_input") {
+                if ("output" in node) {
+                    setNodeInput(node.adliValue);
+                    setNodeOutput(node.output[0].adliValue);
+                } else {
+                    setNodeInput(node.adliValue);
+                    setNodeOutput({});
+                }
+            }
+        } else {
+            setNodeInput({});
+            setNodeOutput({});
+        }
+    }, [activeNode]);
+
+    useEffect(() => {
         if (activeTrace) {
             const trace = JSON.parse(activeTrace.traces);
-            console.log(trace);
             setTraceInput(trace[0].adliValue);
             setTraceOutput(trace[trace.length -1].adliValue);
         }
@@ -62,14 +86,14 @@ export function VariableStackContainer () {
                 Selected Node Input
             </div>
             <div className="section" ref={nodeInputRef}>
-                <VariableContainer variables={{"a": 1}}/>
+                <VariableContainer variables={nodeInput}/>
             </div>
             <VerticleHandle topDiv={nodeInputRef} bottomDiv={nodeOutputRef}/>
             <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
                 Selected Node Output
             </div>
             <div className="section" ref={nodeOutputRef}>
-                <VariableContainer variables={{"a": 1}}/>
+                <VariableContainer variables={nodeOutput}/>
             </div>
         </div>
     );
