@@ -27,6 +27,7 @@ function ASPProviders ({children}) {
     const [fileTree, setFileTree] = useState();
     const [systemsList, setSystemsList] = useState(null);
     const [activeSystem, setActiveSystem] = useState();
+    const [activeTraces, setActiveTraces] = useState();
 
     // Open websocket connection and reconnect when it closes
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(
@@ -77,22 +78,20 @@ function ASPProviders ({children}) {
         if (msg.queryType == "GET_SYSTEMS") {
             loadSystems(msg.response);
         } else if (msg.queryType == "GET_TRACES") {
-            console.log(msg);
+            setActiveTraces(msg.response);
         }
     };
 
     useEffect(() => {
         if (activeSystem) {
-            sendJsonMessage(
-                {
-                    queryType: "GET_TRACES",
-                    data: {
-                        "systemId": activeSystem.id,
-                        "systemVersion": activeSystem.version,
-                        "deploymentId": activeSystem.deployment,
-                    },
-                }
-            );
+            sendJsonMessage({
+                queryType: "GET_TRACES",
+                data: {
+                    "systemId": activeSystem.id,
+                    "systemVersion": activeSystem.version,
+                    "deploymentId": activeSystem.deployment,
+                },
+            });
         }
     }, [activeSystem]);
 
