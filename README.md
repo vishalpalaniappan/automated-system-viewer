@@ -29,7 +29,7 @@ To start the websocket server that ASV connects to, navigate to components/query
 ```shell
 python3 server.py
 ```
-This will start a websocket server on port 8765 (ASV connects to this port).
+This will start a websocket server on port 8765. ASV connects to the websocket server (ws://localhost:8765) to query the ASP database and to visualize and filter through the system level traces.
 
 # Demo
 
@@ -38,7 +38,7 @@ If you don't want to run the ASV development server yourself, you can visit the 
 # How does it work? 
 
 > [!NOTE]  
-> Currently, ASP does not extract stack information for each node in the system level trace. When this is implemented, ASV will be extended to allow the user to visualize the stack.
+> Currently, ASP does not save the stack information for each node in the system level trace. When this is implemented, ASV will be extended to allow the user to visualize the stack.
 
 Unlike the Diagnostic Log Viewer, ASV primarily visualizes information that has already been processed by the Automated System Processor. For this reason, ASV does not implement logic to process systems, instead, it implements logic to visualize the system level traces. 
 
@@ -53,7 +53,9 @@ To make this possiblem, ASV does the following:
 - It visualizes the system level trace in the canvas using React Flow.
 - It visualizes the input/output variables in the system level trace.
 - It visualizes the input/output variables for the selected node in the system level trace.
-- It provides a user interface to filter through the traces with key values extracted from the trace input. 
+- It provides a user interface to filter through the traces with key values extracted from the trace input.
+
+Note: Once system level root cause analysis is implemented in ASP, traces that end in failures will be visualized in ASV along with the root cause of failure.
 
 # Providing feedback
 
