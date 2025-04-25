@@ -21,10 +21,9 @@ export function SystemSelectorContainer () {
 
     const redrawContainers = () => {
         const height = systemContainerRef.current.clientHeight;
-        const containerHeight = (height - 150)/3;
         systemRef.current.style.height = 150 - TITLE_HEIGHT + "px";
-        traceViewRef.current.style.height = containerHeight - TITLE_HEIGHT + "px";
-        filterRef.current.style.height = containerHeight - TITLE_HEIGHT + "px";
+        filterRef.current.style.height = 250 - TITLE_HEIGHT + "px";
+        traceViewRef.current.style.height = height - 400 - TITLE_HEIGHT + "px";
     };
 
     useEffect(() => {
