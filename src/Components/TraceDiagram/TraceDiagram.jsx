@@ -11,11 +11,13 @@ import {
 } from "@xyflow/react";
 import PropTypes from "prop-types";
 
+import ActiveNodeContext from "../../Providers/ActiveNodeContext.js";
 import ActiveTraceContext from "../../Providers/ActiveTraceContext.js";
 import {getLayoutedElements} from "./DagreLayout.js";
 import {getNodesFromTrace} from "./helper.js";
 
 import "@xyflow/react/dist/style.css";
+import "./TraceDiagram.scss";
 
 
 const Flow = ({trace}) => {
@@ -24,18 +26,7 @@ const Flow = ({trace}) => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
-    const onChange = (evt) =>
-        setColorMode(evt.target.value);
-
-    const onLayout = useCallback(
-        (direction) => {
-            const layouted = getLayoutedElements(nodes, edges, {direction});
-            setNodes([...layouted.nodes]);
-            setEdges([...layouted.edges]);
-            fitView();
-        },
-        [nodes, edges]
-    );
+    const {activeNode, setActiveNode}= useContext(ActiveNodeContext);
 
     useEffect(() => {
         if (trace) {
@@ -55,7 +46,11 @@ const Flow = ({trace}) => {
     }, [trace]);
 
     const onNodeClick = (e, node) => {
-        console.log(e, node);
+        setActiveNode(node);
+    };
+
+    const onPanelClick = (e, node) => {
+        setActiveNode(node);
     };
 
     return (
@@ -66,22 +61,10 @@ const Flow = ({trace}) => {
             onEdgesChange={onEdgesChange}
             colorMode={colorMode}
             onNodeClick={onNodeClick}
+            onPaneClick={onPanelClick}
             fitView
         >
             <Controls />
-
-            <Panel position="top-right">
-                <select onChange={onChange} data-testid="colormode-select">
-                    <option value="dark">dark</option>
-                    <option value="light">light</option>
-                    <option value="system">system</option>
-                </select>
-            </Panel>
-
-            <Panel position="top-left">
-                <button onClick={() => onLayout("TB")}>vertical layout</button>
-                <button onClick={() => onLayout("LR")}>horizontal layout</button>
-            </Panel>
         </ReactFlow>
     );
 };

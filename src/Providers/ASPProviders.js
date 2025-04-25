@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
+import ActiveNodeContext from "./ActiveNodeContext";
 import ActiveSystemContext from "./ActiveSystemContext";
 import ActiveTraceContext from "./ActiveTraceContext";
 import ActiveTracesContext from "./ActiveTracesContext";
@@ -29,6 +30,7 @@ function ASPProviders ({children}) {
     const [activeSystem, setActiveSystem] = useState();
     const [activeTraces, setActiveTraces] = useState();
     const [activeTrace, setActiveTrace] = useState();
+    const [activeNode, setActiveNode] = useState();
 
     // Open websocket connection and reconnect when it closes
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(
@@ -104,7 +106,7 @@ function ASPProviders ({children}) {
     }, [activeTrace]);
 
     return (
-        <>
+        <ActiveNodeContext.Provider value={{activeNode, setActiveNode}}>
             <ActiveTraceContext.Provider value={{activeTrace, setActiveTrace}}>
                 <SystemsContext.Provider value={{systemsList}}>
                     <ActiveSystemContext.Provider value={{activeSystem, setActiveSystem}}>
@@ -114,7 +116,7 @@ function ASPProviders ({children}) {
                     </ActiveSystemContext.Provider>
                 </SystemsContext.Provider>
             </ActiveTraceContext.Provider>
-        </>
+        </ActiveNodeContext.Provider>
     );
 };
 
