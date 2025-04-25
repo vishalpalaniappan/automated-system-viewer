@@ -28,19 +28,6 @@ const Flow = ({trace}) => {
 
     const {activeNode, setActiveNode}= useContext(ActiveNodeContext);
 
-    const onChange = (evt) =>
-        setColorMode(evt.target.value);
-
-    const onLayout = useCallback(
-        (direction) => {
-            const layouted = getLayoutedElements(nodes, edges, {direction});
-            setNodes([...layouted.nodes]);
-            setEdges([...layouted.edges]);
-            fitView();
-        },
-        [nodes, edges]
-    );
-
     useEffect(() => {
         if (trace) {
             // Set initial layout of nodes with a vertical layout
@@ -78,7 +65,6 @@ const Flow = ({trace}) => {
             fitView
         >
             <Controls />
-            
         </ReactFlow>
     );
 };
