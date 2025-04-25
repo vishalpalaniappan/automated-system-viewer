@@ -16,7 +16,7 @@ export function SideContainer () {
     const handle = useRef();
 
     const SIDE_MENU_WIDTH = 50;
-    const ACCORDIAN_WIDTH = 200;
+    const ACCORDIAN_WIDTH = 400;
     const MIN_EDITOR_WIDTH = 400;
     const MIN_ACCORDIAN_WIDTH = 200;
     const MAX_ACCORDIAN_WIDTH = document.body.clientWidth - SIDE_MENU_WIDTH - MIN_EDITOR_WIDTH;
