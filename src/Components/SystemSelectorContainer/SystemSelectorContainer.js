@@ -22,7 +22,6 @@ export function SystemSelectorContainer () {
         const height = debugContainerRef.current.clientHeight;
         const containerHeight = height - 150;
         variableStackRef.current.style.height = 150 - TITLE_HEIGHT + "px";
-        // breakPointRef.current.style.height = 150 - TITLE_HEIGHT + "px";
         callStackRef.current.style.height = containerHeight - TITLE_HEIGHT + "px";
     };
 
@@ -41,11 +40,6 @@ export function SystemSelectorContainer () {
             <div className="section" ref={callStackRef}>
                 <TraceView />
             </div>
-            {/* <VerticleHandle topDiv={callStackRef} bottomDiv={breakPointRef}/>
-            <div className="w-100 title" style={{height: TITLE_HEIGHT + "px"}}>Breakpoints</div>
-            <div className="section" ref={breakPointRef}>
-                <BreakPointContainer />
-            </div> */}
         </div>
     );
 }
