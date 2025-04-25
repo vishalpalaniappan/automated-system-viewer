@@ -14,25 +14,24 @@ const arrowStyle = {
 
 /**
  * Returns react flow nodes and edges from the given trace.
- * @param {Object} trace
- * @returns {Array} An array co
+ * @param {Object} trace A trace to convert to react flow compatible
+ *                       node and edge structure.
+ * @return {Array} An object which contains the nodes and edges.
  */
-
-
 export const getNodesFromTrace = (trace) => {
     const edges = [];
     const nodes = [];
 
     // Validate input
     if (!Array.isArray(trace) || trace.length === 0) {
-        return { nodes, edges };
+        return {nodes, edges};
     }
 
     trace.forEach((node, index) => {
         node.flowId = String(index) + node.adliExecutionId;
         const flowNode = {
             id: node.flowId,
-            position: {x: 250, y: index * 200}, // Consider making x position configurable
+            position: {x: 250, y: index * 200},
             data: {label: node.programName},
         };
         flowNode.sourceNode = node;
