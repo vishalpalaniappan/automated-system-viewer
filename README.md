@@ -67,6 +67,27 @@ To make this possiblem, ASV does the following:
 
 Note: Once system level root cause analysis is implemented in ASP, traces that end in failures will be visualized in ASV along with the root cause of failure.
 
+## User Interface 
+An image of the current state of the application's UI is provided below:
+
+![image](https://github.com/user-attachments/assets/e4730b09-d789-4ed0-a401-5e89f8026563)
+
+In this image, the UI can be broken down as follows:
+
+### System (left container):
+- The top container contains a user interface for selected the system. It provides options to select the system id, version and deployment.
+- The bottom container contains the system level traces and it allows the user to select a trace for inspection.
+- Selected traces are highlighted with a green border on the left of their container.
+- This will be extended to support filtering of system level traces.
+
+### Canvas (center container):
+- The canvas in the middle contains the flow diagram of the trace that has been selected.
+- The nodes in the trace can be selected to inspect the input/output values. 
+
+### Variable Container (right container):
+- The top two containers contain the input/output variable information for the entire system trace.
+- The bottom two containers contain the input/output variable information for the node that is selected in the canvas.
+
 # Providing feedback
 
 You can use GitHub issues to [report a bug][bug-report] or [request a feature][feature-req].
