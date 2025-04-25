@@ -75,9 +75,9 @@ An image of the current state of the application's UI is provided below:
 In this image, the UI can be broken down as follows:
 
 ### System (left container):
-- The top container contains a user interface for selected the system. It provides options to select the system id, version and deployment.
-- The bottom container contains the system level traces and it allows the user to select a trace for inspection.
-- Selected traces are highlighted with a green border on the left of their container.
+- The top section contains a user interface for selecting a system. It provides options to select the system id, version and deployment.
+- The bottom section contains the system level traces for the chosen system and it allows the user to select a trace for inspection.
+- Selected traces are highlighted with a green border on the left of its row.
 - This will be extended to support filtering of system level traces.
 
 ### Canvas (center container):
@@ -85,8 +85,8 @@ In this image, the UI can be broken down as follows:
 - The nodes in the trace can be selected to inspect the input/output values. 
 
 ### Variable Container (right container):
-- The top two containers contain the input/output variable information for the entire system trace.
-- The bottom two containers contain the input/output variable information for the node that is selected in the canvas.
+- The top two sections contain the input/output variable information for the entire system trace.
+- The bottom two sections contain the input/output variable information for the node that is selected in the canvas.
 
 # Providing feedback
 
