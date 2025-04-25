@@ -9,6 +9,7 @@ import ActiveTraceContext from "./ActiveTraceContext";
 import ActiveTracesContext from "./ActiveTracesContext";
 import System from "./System";
 import SystemsContext from "./SystemsContext";
+import WebsocketConnectionStateContext from "./WebsocketConnectionStateContext";
 
 ASPProviders.propTypes = {
     children: PropTypes.object,
@@ -106,17 +107,19 @@ function ASPProviders ({children}) {
     }, [activeTrace]);
 
     return (
-        <ActiveNodeContext.Provider value={{activeNode, setActiveNode}}>
-            <ActiveTraceContext.Provider value={{activeTrace, setActiveTrace}}>
-                <SystemsContext.Provider value={{systemsList}}>
-                    <ActiveSystemContext.Provider value={{activeSystem, setActiveSystem}}>
-                        <ActiveTracesContext.Provider value={{activeTraces, setActiveTraces}}>
-                            {children}
-                        </ActiveTracesContext.Provider>
-                    </ActiveSystemContext.Provider>
-                </SystemsContext.Provider>
-            </ActiveTraceContext.Provider>
-        </ActiveNodeContext.Provider>
+        <WebsocketConnectionStateContext.Provider value={{readyState}}>
+            <ActiveNodeContext.Provider value={{activeNode, setActiveNode}}>
+                <ActiveTraceContext.Provider value={{activeTrace, setActiveTrace}}>
+                    <SystemsContext.Provider value={{systemsList}}>
+                        <ActiveSystemContext.Provider value={{activeSystem, setActiveSystem}}>
+                            <ActiveTracesContext.Provider value={{activeTraces, setActiveTraces}}>
+                                {children}
+                            </ActiveTracesContext.Provider>
+                        </ActiveSystemContext.Provider>
+                    </SystemsContext.Provider>
+                </ActiveTraceContext.Provider>
+            </ActiveNodeContext.Provider>
+        </WebsocketConnectionStateContext.Provider>
     );
 };
 
