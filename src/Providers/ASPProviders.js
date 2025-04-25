@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
 import ActiveSystemContext from "./ActiveSystemContext";
+import ActiveTracesContext from "./ActiveTracesContext";
 import FileTreeContext from "./FileTreeContext";
 import System from "./System";
 import SystemsContext from "./SystemsContext";
@@ -100,7 +101,9 @@ function ASPProviders ({children}) {
             <FileTreeContext.Provider value={{fileTree}}>
                 <SystemsContext.Provider value={{systemsList}}>
                     <ActiveSystemContext.Provider value={{activeSystem, setActiveSystem}}>
-                        {children}
+                        <ActiveTracesContext.Provider value={{activeTraces, setActiveTraces}}>
+                            {children}
+                        </ActiveTracesContext.Provider>
                     </ActiveSystemContext.Provider>
                 </SystemsContext.Provider>
             </FileTreeContext.Provider>
