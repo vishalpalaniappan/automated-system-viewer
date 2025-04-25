@@ -67,14 +67,24 @@ function ASPProviders ({children}) {
 
     const loadSystems = (systems) => {
         systems.forEach((system, index) => {
-            systemsList.push(new System(system));
+            systemsList.push(new System(system, sendJsonMessage));
+        });
+    };
+
+    const setSystem = (msg) => {
+        const id = msg.data.systemId + "_" + msg.data.systemVersion;
+        systemsList.forEach((sys, index) => {
+            if (sys.id == id) {
+                sys.loadInfo(msg.response);
+            }
         });
     };
 
     const handleMessage = (msg) => {
         if (msg.queryType == "GET_SYSTEMS") {
             loadSystems(msg.response);
-            console.log(systemsList);
+        } else if (msg.queryType == "GET_SYSTEM") {
+            setSystem(msg);
         }
     };
 
