@@ -67,6 +67,8 @@ export function VariableStackContainer () {
             const trace = JSON.parse(activeTrace.traces);
             setTraceInput(trace[0].adliValue);
             setTraceOutput(trace[trace.length -1].adliValue);
+            setNodeInput({});
+            setNodeOutput({});
         }
     }, [activeTrace]);
 
