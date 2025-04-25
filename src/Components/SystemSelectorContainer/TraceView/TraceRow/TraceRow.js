@@ -26,13 +26,19 @@ export function TraceRow ({node}) {
 
     useEffect(() => {
         if (node) {
-            node.duration = getDurationinSeconds(node.start_ts, node.end_ts);
-            node.traceList = JSON.parse(node.traces);
+            const duration = getDurationinSeconds(node.start_ts, node.end_ts);
+            let traceList;
+            try {
+                traceList = JSON.parse(node.traces);
+            } catch (error) {
+                console.error("Failed to parse traces JSON:", error);
+                traceList = [];
+            }
 
             setStartTs(formatTimestampToDateTime(node.start_ts));
-            setStartProgram(node.traceList[0].programName);
-            setDuration(node.duration);
-            setNumberOfEvents(node.traceList.length);
+            setStartProgram(traceList.length > 0 ? traceList[0].programName : "Unknown");
+            setDuration(duration);
+            setNumberOfEvents(traceList.length);
         }
     }, [node]);
 
