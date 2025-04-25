@@ -9,26 +9,12 @@ class System {
      */
     constructor (systemInfo, sendJsonMessage) {
         this.id = systemInfo.system_id + "_" + systemInfo.version;
-        this.sysId = systemInfo.system_id;
-        this.version = systemInfo.version;
+        this.sysId = String(systemInfo.system_id);
+        this.version = String(systemInfo.version);
+        this.programs = systemInfo.programs;
+        this.deployments = systemInfo.deployments;
 
-        sendJsonMessage({
-            "queryType": "GET_SYSTEM",
-            "data": {
-                "systemId": this.sysId,
-                "systemVersion": this.version,
-            },
-        });
-    }
-
-    /**
-     * Loads the results of deployments and program queries.
-     * @param {Object} info 
-     */
-    loadInfo (info) {
-        Object.keys(info).forEach((key, index) => {
-            this[key] = info[key];
-        });
+        console.log("Created:", this.sysId, this.version);
     }
 }
 

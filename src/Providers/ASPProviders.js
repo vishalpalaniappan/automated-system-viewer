@@ -25,7 +25,7 @@ function ASPProviders ({children}) {
 
     const [fileTree, setFileTree] = useState();
     const [uniqueTrace, setUniqueTrace] = useState();
-    const [systemsList, setSystemsList] = useState([]);
+    const [systemsList, setSystemsList] = useState(null);
 
     // Open websocket connection and reconnect when it closes
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(
@@ -66,26 +66,17 @@ function ASPProviders ({children}) {
 
 
     const loadSystems = (systems) => {
+        const _systems = [];
         systems.forEach((system, index) => {
-            systemsList.push(new System(system, sendJsonMessage));
+            console.log("Requesting: ", system.system_id, system.version);
+            _systems.push(new System(system, sendJsonMessage));
         });
-        setSystemsList([...systemsList]);
-    };
-
-    const setSystem = (msg) => {
-        const id = msg.data.systemId + "_" + msg.data.systemVersion;
-        systemsList.forEach((sys, index) => {
-            if (sys.id == id) {
-                sys.loadInfo(msg.response);
-            }
-        });
+        setSystemsList(_systems);
     };
 
     const handleMessage = (msg) => {
         if (msg.queryType == "GET_SYSTEMS") {
             loadSystems(msg.response);
-        } else if (msg.queryType == "GET_SYSTEM") {
-            setSystem(msg);
         }
     };
 
