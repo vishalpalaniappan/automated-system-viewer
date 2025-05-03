@@ -9,7 +9,7 @@ class System {
     constructor (systemInfo) {
         this.id = systemInfo.system_id + "_" + systemInfo.version;
         this.sysId = String(systemInfo.system_id);
-        this.version = String(systemInfo.version);
+        this.version = String(systemInfo.system_ver);
         this.programs = systemInfo.programs;
         this.deployments = systemInfo.deployments;
 
