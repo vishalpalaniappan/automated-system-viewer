@@ -48,7 +48,6 @@ export function VariableStackContainer () {
     useEffect(() => {
         if (activeNode) {
             const node = activeNode.sourceNode;
-            console.log(node);
             if (node.type == "adli_output") {
                 setInput(null);
                 setOutput(node);
@@ -71,6 +70,8 @@ export function VariableStackContainer () {
                 }
             }
         } else {
+            setInput(null);
+            setOutput(null);
             setInputValue({});
             setOutputValue({});
         }
@@ -87,7 +88,7 @@ export function VariableStackContainer () {
     }, [activeTrace]);
 
     const getLinkDiv = (node) => {
-        if ("adliExecutionId" in node && "adliExecutionIndex" in node) {
+        if (node && "adliExecutionId" in node && "adliExecutionIndex" in node) {
             const url = `http://localhost:3011?filePath=${node["adliExecutionId"]}.clp.zst`;
             return <div className="float-end pe-2">
                 <a href={url} target="_blank" rel="noopener noreferrer">
