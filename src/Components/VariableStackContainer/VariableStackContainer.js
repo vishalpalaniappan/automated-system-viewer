@@ -1,10 +1,11 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 
+import {BoxArrowInUpRight} from "react-bootstrap-icons";
+
 import ActiveNodeContext from "../../Providers/ActiveNodeContext";
 import ActiveTraceContext from "../../Providers/ActiveTraceContext";
 import {VariableContainer} from "./VariableContainer/VariableContainer";
 import {VerticleHandle} from "./VerticleHandle/VerticleHandle";
-import {BoxArrowInUpRight} from "react-bootstrap-icons";
 
 import "./VariableStackContainer.scss";
 
@@ -45,6 +46,7 @@ export function VariableStackContainer () {
     useEffect(() => {
         if (activeNode) {
             const node = activeNode.sourceNode;
+            console.log(node);
             if (node.type == "adli_output") {
                 setNodeInput({});
                 setNodeOutput(node.adliValue);
@@ -91,7 +93,11 @@ export function VariableStackContainer () {
             <VerticleHandle topDiv={traceOutputRef} bottomDiv={nodeInputRef}/>
             <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
                 <div className="float-start">Selected Node Input</div>
-                <div className="float-end pe-2 linkDlv"><BoxArrowInUpRight/> Open in DLV  </div>
+                {Object.keys(nodeInput).length > 0 &&
+                    <div className="float-end pe-2 linkDlv"><BoxArrowInUpRight/>
+                        Open in DLV
+                    </div>
+                }
             </div>
             <div className="section" ref={nodeInputRef}>
                 <VariableContainer type={"node"} variables={nodeInput}/>
@@ -99,7 +105,11 @@ export function VariableStackContainer () {
             <VerticleHandle topDiv={nodeInputRef} bottomDiv={nodeOutputRef}/>
             <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
                 <div className="float-start">Selected Node Output</div>
-                <div className="float-end pe-2 linkDlv"><BoxArrowInUpRight/> Open in DLV  </div>
+                {Object.keys(nodeOutput).length > 0 &&
+                    <div className="float-end pe-2 linkDlv" onClick={openLink(no)}>
+                        <BoxArrowInUpRight/> Open in DLV
+                    </div>
+                }
             </div>
             <div className="section" ref={nodeOutputRef}>
                 <VariableContainer type={"node"} variables={nodeOutput}/>
