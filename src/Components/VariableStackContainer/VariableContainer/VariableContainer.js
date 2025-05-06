@@ -34,19 +34,8 @@ export function VariableContainer ({type, variables}) {
         base0F: "#a7ce8a",
     };
 
-    const getStyle = () => {
-        const hasValue = Object.keys(variables).length > 0;
-        if (type === "node" && hasValue) {
-            return {
-                border: "solid 1px #ff6767",
-            };
-        } else if (type === "trace" && hasValue) {
-            return {};
-        }
-    };
-
     return (
-        <div className="variableStackContainer w-100 h-100" style={getStyle()}>
+        <div className="variableStackContainer w-100 h-100" >
             {Object.keys(variables).length > 0 &&
                 <ReactJsonView
                     src={variables}

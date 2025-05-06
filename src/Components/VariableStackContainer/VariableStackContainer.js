@@ -30,7 +30,7 @@ export function VariableStackContainer () {
     const nodeInputRef = useRef();
     const nodeOutputRef = useRef();
 
-    const TITLE_HEIGHT = 20;
+    const TITLE_HEIGHT = 23;
 
     const redrawContainers = () => {
         const height = variableContainerRef.current.clientHeight;
@@ -100,6 +100,18 @@ export function VariableStackContainer () {
         console.log(node);
     };
 
+    const getTitleStyle = (node) => {
+        const style = {
+            height: TITLE_HEIGHT + "px",
+        };
+
+        if (node) {
+            style["backgroundColor"] = "#422e2f";
+        }
+
+        return style;
+    };
+
     return (
         <div ref={variableContainerRef} className="variable-container w-100 d-flex flex-column">
             <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
@@ -116,16 +128,20 @@ export function VariableStackContainer () {
                 <VariableContainer type={"trace"} variables={traceOutput}/>
             </div>
             <VerticleHandle topDiv={traceOutputRef} bottomDiv={nodeInputRef}/>
-            <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
-                <div className="float-start">Selected Node Input</div>
+            <div className="w-100 variable-title" style={getTitleStyle(input)}>
+                <div className="float-start">
+                    Selected Node Input
+                </div>
                 {getLinkDiv(input)}
             </div>
             <div className="section" ref={nodeInputRef}>
                 <VariableContainer type={"node"} variables={inputValue}/>
             </div>
             <VerticleHandle topDiv={nodeInputRef} bottomDiv={nodeOutputRef}/>
-            <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
-                <div className="float-start">Selected Node Output</div>
+            <div className="w-100 variable-title" style={getTitleStyle(output)}>
+                <div className="float-start">
+                    Selected Node Output
+                </div>
                 {getLinkDiv(output)}
             </div>
             <div className="section" ref={nodeOutputRef}>
