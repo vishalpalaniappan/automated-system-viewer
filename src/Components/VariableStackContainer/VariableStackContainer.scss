@@ -7,8 +7,14 @@
     width:100%;
 }
 
-.variable-title{
+.variable-title-row{
     color: rgb(155, 155, 155);
     font-size: 12px;
-    padding-left:10px;
 }
+
+.variable-title {
+    padding:0 10px;
+    line-height:23px;
+    height:23px;
+}
+

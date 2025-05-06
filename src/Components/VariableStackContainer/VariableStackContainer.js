@@ -105,35 +105,36 @@ export function VariableStackContainer () {
     };
 
     const getTitleStyle = (node) => {
-        const style = {
-            height: TITLE_HEIGHT + "px",
-        };
-
         if (node) {
-            style["backgroundColor"] = "#422e2f";
+            return {
+                "backgroundColor": "#813232",
+                "color": "white",
+            };
         }
-
-        return style;
     };
 
     return (
         <div ref={variableContainerRef} className="variable-container w-100 d-flex flex-column">
-            <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
-                Trace Input
+            <div className="w-100 variable-title-row">
+                <div className="float-start variable-title">
+                    Trace Output
+                </div>
             </div>
             <div className="section" ref={traceInputRef}>
                 <VariableContainer type={"trace"} variables={traceInput}/>
             </div>
             <VerticleHandle topDiv={traceInputRef} bottomDiv={traceOutputRef}/>
-            <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
-                Trace Output
+            <div className="w-100 variable-title-row" >
+                <div className="float-start variable-title">
+                    Trace Output
+                </div>
             </div>
             <div className="section" ref={traceOutputRef}>
                 <VariableContainer type={"trace"} variables={traceOutput}/>
             </div>
             <VerticleHandle topDiv={traceOutputRef} bottomDiv={nodeInputRef}/>
-            <div className="w-100 variable-title" style={getTitleStyle(input)}>
-                <div className="float-start">
+            <div className="w-100 variable-title-row">
+                <div className="float-start variable-title" style={getTitleStyle(input)}>
                     Selected Node Input
                 </div>
                 {getLinkDiv(input)}
@@ -142,8 +143,8 @@ export function VariableStackContainer () {
                 <VariableContainer type={"node"} variables={inputValue}/>
             </div>
             <VerticleHandle topDiv={nodeInputRef} bottomDiv={nodeOutputRef}/>
-            <div className="w-100 variable-title" style={getTitleStyle(output)}>
-                <div className="float-start">
+            <div className="w-100 variable-title-row" >
+                <div className="float-start variable-title" style={getTitleStyle(output)}>
                     Selected Node Output
                 </div>
                 {getLinkDiv(output)}
