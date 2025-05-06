@@ -1,5 +1,7 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 
+import {BoxArrowInUpRight} from "react-bootstrap-icons";
+
 import ActiveNodeContext from "../../Providers/ActiveNodeContext";
 import ActiveTraceContext from "../../Providers/ActiveTraceContext";
 import {VariableContainer} from "./VariableContainer/VariableContainer";
@@ -18,15 +20,17 @@ export function VariableStackContainer () {
 
     const [traceInput, setTraceInput] = useState({});
     const [traceOutput, setTraceOutput] = useState({});
-    const [nodeInput, setNodeInput] = useState({});
-    const [nodeOutput, setNodeOutput] = useState({});
+    const [input, setInput] = useState({});
+    const [output, setOutput] = useState({});
+    const [inputValue, setInputValue] = useState({});
+    const [outputValue, setOutputValue] = useState({});
 
     const traceInputRef = useRef();
     const traceOutputRef = useRef();
     const nodeInputRef = useRef();
     const nodeOutputRef = useRef();
 
-    const TITLE_HEIGHT = 20;
+    const TITLE_HEIGHT = 23;
 
     const redrawContainers = () => {
         const height = variableContainerRef.current.clientHeight;
@@ -45,20 +49,31 @@ export function VariableStackContainer () {
         if (activeNode) {
             const node = activeNode.sourceNode;
             if (node.type == "adli_output") {
-                setNodeInput({});
-                setNodeOutput(node.adliValue);
+                setInput(null);
+                setOutput(node);
+
+                setInputValue({});
+                setOutputValue(node.adliValue);
             } else if (node.type == "adli_input") {
                 if ("output" in node) {
-                    setNodeInput(node.adliValue);
-                    setNodeOutput(node.output[0].adliValue);
+                    setInput(node);
+                    setOutput(node.output[0]);
+
+                    setInputValue(node.adliValue);
+                    setOutputValue(node.output[0].adliValue);
                 } else {
-                    setNodeInput(node.adliValue);
-                    setNodeOutput({});
+                    setInput(node);
+                    setOutput(null);
+
+                    setInputValue(node.adliValue);
+                    setOutputValue({});
                 }
             }
         } else {
-            setNodeInput({});
-            setNodeOutput({});
+            setInput(null);
+            setOutput(null);
+            setInputValue({});
+            setOutputValue({});
         }
     }, [activeNode]);
 
@@ -67,10 +82,39 @@ export function VariableStackContainer () {
             const trace = JSON.parse(activeTrace.traces);
             setTraceInput(trace[0].adliValue);
             setTraceOutput(trace[trace.length -1].adliValue);
-            setNodeInput({});
-            setNodeOutput({});
+            setInputValue({});
+            setOutputValue({});
         }
     }, [activeTrace]);
+
+    const getLinkDiv = (node) => {
+        console.log(node);
+        if (node && "adliExecutionId" in node && "adliExecutionIndex" in node) {
+            let url = "http://localhost:3011?";
+            url = url + `filePath=${node["adliExecutionId"]}.clp.zst&`;
+            url = url + `executionIndex=${node["adliExecutionIndex"]}`;
+            console.log(url);
+            return <div className="float-end pe-2">
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                    <BoxArrowInUpRight/> Open in DLV
+                </a>
+            </div>;
+        }
+
+        console.log(node);
+    };
+
+    const getTitleStyle = (node) => {
+        const style = {
+            height: TITLE_HEIGHT + "px",
+        };
+
+        if (node) {
+            style["backgroundColor"] = "#422e2f";
+        }
+
+        return style;
+    };
 
     return (
         <div ref={variableContainerRef} className="variable-container w-100 d-flex flex-column">
@@ -88,18 +132,24 @@ export function VariableStackContainer () {
                 <VariableContainer type={"trace"} variables={traceOutput}/>
             </div>
             <VerticleHandle topDiv={traceOutputRef} bottomDiv={nodeInputRef}/>
-            <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
-                Selected Node Input
+            <div className="w-100 variable-title" style={getTitleStyle(input)}>
+                <div className="float-start">
+                    Selected Node Input
+                </div>
+                {getLinkDiv(input)}
             </div>
             <div className="section" ref={nodeInputRef}>
-                <VariableContainer type={"node"} variables={nodeInput}/>
+                <VariableContainer type={"node"} variables={inputValue}/>
             </div>
             <VerticleHandle topDiv={nodeInputRef} bottomDiv={nodeOutputRef}/>
-            <div className="w-100 variable-title" style={{height: TITLE_HEIGHT + "px"}}>
-                Selected Node Output
+            <div className="w-100 variable-title" style={getTitleStyle(output)}>
+                <div className="float-start">
+                    Selected Node Output
+                </div>
+                {getLinkDiv(output)}
             </div>
             <div className="section" ref={nodeOutputRef}>
-                <VariableContainer type={"node"} variables={nodeOutput}/>
+                <VariableContainer type={"node"} variables={outputValue}/>
             </div>
         </div>
     );
