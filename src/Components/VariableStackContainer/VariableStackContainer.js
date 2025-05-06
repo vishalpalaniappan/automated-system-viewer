@@ -105,29 +105,29 @@ export function VariableStackContainer () {
     };
 
     const getTitleStyle = (node) => {
-        const style = {
-            height: TITLE_HEIGHT + "px",
-        };
-
         if (node) {
-            style["backgroundColor"] = "#813232";
-            style["color"] = "white";
+            return {
+                "backgroundColor": "#813232",
+                "color": "white",
+            };
         }
-
-        return style;
     };
 
     return (
         <div ref={variableContainerRef} className="variable-container w-100 d-flex flex-column">
-            <div className="w-100 variable-title-row" style={{height: TITLE_HEIGHT + "px"}}>
-                Trace Input
+            <div className="w-100 variable-title-row">
+                <div className="float-start variable-title">
+                    Trace Output
+                </div>
             </div>
             <div className="section" ref={traceInputRef}>
                 <VariableContainer type={"trace"} variables={traceInput}/>
             </div>
             <VerticleHandle topDiv={traceInputRef} bottomDiv={traceOutputRef}/>
-            <div className="w-100 variable-title-row" style={{height: TITLE_HEIGHT + "px"}}>
-                Trace Output
+            <div className="w-100 variable-title-row" >
+                <div className="float-start variable-title">
+                    Trace Output
+                </div>
             </div>
             <div className="section" ref={traceOutputRef}>
                 <VariableContainer type={"trace"} variables={traceOutput}/>
