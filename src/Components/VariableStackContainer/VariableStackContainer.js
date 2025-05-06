@@ -88,8 +88,12 @@ export function VariableStackContainer () {
     }, [activeTrace]);
 
     const getLinkDiv = (node) => {
+        console.log(node);
         if (node && "adliExecutionId" in node && "adliExecutionIndex" in node) {
-            const url = `http://localhost:3011?filePath=${node["adliExecutionId"]}.clp.zst`;
+            let url = "http://localhost:3011?";
+            url = url + `filePath=${node["adliExecutionId"]}.clp.zst&`;
+            url = url + `executionIndex=${node["adliExecutionIndex"]}`;
+            console.log(url);
             return <div className="float-end pe-2">
                 <a href={url} target="_blank" rel="noopener noreferrer">
                     <BoxArrowInUpRight/> Open in DLV
