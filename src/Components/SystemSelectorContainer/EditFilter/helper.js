@@ -9,11 +9,16 @@
 export function processTraces (traces) {
     const keys = [];
     const values = {};
+    let startTs;
+    let endTs;
 
     traces.forEach((trace, index) => {
         const nodes = JSON.parse(trace.traces);
         const startNode = nodes[0];
         const value = startNode.adliValue;
+
+        startTs = nodes[0].timestamp;
+        endTs = nodes[nodes.length - 1].timestamp;
 
         Object.keys(value).forEach((key, index) => {
             // If key has not been saved, add it.
@@ -37,5 +42,7 @@ export function processTraces (traces) {
     return {
         keys: keys,
         values: values,
+        startTs: startTs,
+        endTs: endTs,
     };
 };

@@ -1,4 +1,6 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
+
+import {EditFilter} from "../EditFilter/EditFilter";
 
 import "./Filter.scss";
 
@@ -7,9 +9,17 @@ import "./Filter.scss";
  * @return {JSX.Element}
  */
 export function Filter () {
+    const [editFilterShow, setEditFilterShow] = useState(false);
+
     return (
-        <div style={{height: "100px", width: "100%"}}>
-        
+        <div className="w-100 h-100">
+            <div className="showFilter" onClick={() => setEditFilterShow(true)}>Edit Filter</div>
+
+            <EditFilter
+                show={editFilterShow}
+                handleClose={() => setEditFilterShow(false)}
+                title="Edit Filter"
+            />
         </div>
     );
 }

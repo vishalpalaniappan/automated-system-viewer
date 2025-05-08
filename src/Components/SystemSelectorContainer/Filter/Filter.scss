@@ -1,27 +1,9 @@
-.systemContainer {
+.showFilter{
     color:white;
-    font-size:13px;
-    padding:0 10px;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    scrollbar-gutter: stable;
-    scrollbar-color: #47474766 #252526;
-    scrollbar-width: thin;
+    text-align: center;
+    cursor: pointer;
 }
 
-.systemSelectRow {
-    margin: 5px 0;
-}
-
-.customSelector {
-    border: none;
-    background: #252526;
-    color: white;
-    border-bottom: solid 1px rgb(77, 77, 77);
-    width: 100%;
-}
-
-.customSelector:focus {
-    outline: none;
+.showFilter:hover {
+    text-decoration: underline;
 }
