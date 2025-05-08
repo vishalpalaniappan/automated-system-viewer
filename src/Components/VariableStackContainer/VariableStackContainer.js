@@ -88,20 +88,16 @@ export function VariableStackContainer () {
     }, [activeTrace]);
 
     const getLinkDiv = (node) => {
-        console.log(node);
-        if (node && "adliExecutionId" in node && "adliExecutionIndex" in node) {
+        if (node && "logFileIndex" in node && "logFileId" in node) {
             let url = "http://localhost:3011?";
-            url = url + `filePath=${node["adliExecutionId"]}.clp.zst&`;
-            url = url + `executionIndex=${node["adliExecutionIndex"]}`;
-            console.log(url);
+            url = url + `filePath=${node["logFileId"]}.clp.zst&`;
+            url = url + `executionIndex=${node["logFileIndex"]}`;
             return <div className="float-end pe-2">
                 <a href={url} target="_blank" rel="noopener noreferrer">
                     <BoxArrowInUpRight/> Open in DLV
                 </a>
             </div>;
         }
-
-        console.log(node);
     };
 
     const getTitleStyle = (node) => {
