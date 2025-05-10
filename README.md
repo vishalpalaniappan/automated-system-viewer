@@ -16,41 +16,18 @@ To build the application, run the following command:
 ```shell
 npm run build
 ```
-# Websocket Server
-To start the websocket server that ASV connects to, please clone this [repo][asp-repo].  
-
-After cloning the repo, to install the dependencies, navigate to the components/asp folder and run the following command:
-```shell
-pip install -r requirements.txt
-```
-In the components/asp folder,  run the system processor to generate the ASP database using the following command:
-```shell
-python3 SystemProcessor.py
-```
-This will process all the log files in the system logs folder and it will save the extracted traces to the ASP database.
-
-To run the server, first install the dependencies by navigating to components/query_handler folder and run the following command:
-```shell
-pip install -r requirements.txt
-```
-To start the websocket server that ASV connects to, in the components/query_handler folder, run the following command:
-```shell
-python3 server.py
-```
-This will start a websocket server on port 8765. ASV connects to the websocket server (ws://localhost:8765) to query the ASP database and to visualize and filter through the system level traces.
-
-Note: This entire process will be automated in a coming PR.
+# Automated System Processor
+Start Automated System Processor(ASP) by cloning this [repo][asp-repo] and following usage instructions. It will start a websocket server which allows ASV to query the ASP database.
 
 # Demo
 
-If you don't want to run the ASV development server yourself, you can visit the [demo][demo-url] page and it will connect to the ASP server that is running localy on your machine.
+If you don't want to run the ASV development server yourself, you can visit the [demo][demo-url] page and it will connect to the ASP server that is running locally on your machine.
+
+ASP runs its own instance of the automated system viewer, so to avoid running two instances, the asp-asv-container should be stopped first.
 
 # How does it work? 
 
-> [!NOTE]  
-> Currently, ASP does not save the stack information for each node in the system level trace. When this is implemented, ASV will be extended to allow the user to visualize the stack.
-
-Unlike the Diagnostic Log Viewer, ASV primarily visualizes information that has already been processed by the Automated System Processor. For this reason, ASV does not implement logic to process systems, instead, it implements logic to visualize the system level traces. 
+ASV primarily visualizes information that has already been processed by the Automated System Processor. For this reason, ASV does not implement logic to process systems, instead, it implements logic to visualize the system level traces. 
 
 ![Alt text](docs/workflow_diagram.png)
 
