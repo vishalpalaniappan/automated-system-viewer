@@ -43,16 +43,16 @@ export function EditFilter ({show, handleClose}) {
 
     return (
         <Modal show={show} onHide={handleClose} size="lg" centered data-bs-theme="dark">
-            <Modal.Header>
-                <div className="d-flex flex-row">
+            <Modal.Header className="d-flex justify-content-between">
+                <div>
                     <span>System ID:</span>
                     <span className="header-value">{activeSystem?.id}</span>
                 </div>
-                <div className="d-flex flex-row">
+                <div>
                     <span >Version:</span>
                     <span className="header-value">{activeSystem?.version}</span>
                 </div>
-                <div className="d-flex flex-row">
+                <div>
                     <span>Deployment:</span>
                     <span className="header-value">{activeSystem?.deployment}</span>
                 </div>
