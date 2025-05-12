@@ -3,13 +3,12 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 import {Button, Modal} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
-import { processTraces } from "./helper";
-
 import ActiveTracesContext from "../../../Providers/ActiveTracesContext";
+import {processTraces} from "./helper";
+import {ValueBox} from "./ValueBox/ValueBox";
 
 import "react-datepicker/dist/react-datepicker.css";
-
-import "./EditFilter.scss"
+import "./EditFilter.scss";
 
 /**
  *
@@ -18,41 +17,20 @@ import "./EditFilter.scss"
  */
 export function EditFilter ({show, handleClose, title, body}) {
     const {activeTraces, setActiveTraces} = useContext(ActiveTracesContext);
-    const [filterableValues, setFilterableValues] = useState();
     const [selectedKey, setSelectedKey] = useState();
-    const [selectedKeyValues, setSelectedKeyValues] = useState();
+    const [keysDiv, setKeysDiv] = useState();
 
     useEffect(() => {
         if (activeTraces) {
             const filters = processTraces(activeTraces);
-            setFilterableValues(filters);
-            console.log(filters);
-        }
-    }, [activeTraces]);
-
-    const getKeys = () => {
-        if (filterableValues?.keys) {
             const _keys = [];
-            filterableValues.keys.forEach((key, index) => {
+            filters.keys.forEach((key, index) => {
                 _keys.push(<option key={key} value={key}>{key}</option>);
             });
-            return _keys;
+            setKeysDiv(_keys);
+            setSelectedKey(filters.keys[0]);
         }
-    };
-
-    const getValues = () => {
-        if (filterableValues?.values) {
-            console.log(filterableValues.values[selectedKey]);
-        }
-    };
-
-    useEffect(() => {
-        if (selectedKey && filterableValues?.values) {
-            console.log("Selected Key:", selectedKey);
-            setSelectedKeyValues(filterableValues.values[selectedKey]);
-        }
-    }, [selectedKey]);
-
+    }, [activeTraces]);
 
     return (
         <Modal show={show} onHide={handleClose} size="lg" centered data-bs-theme="dark">
@@ -62,7 +40,7 @@ export function EditFilter ({show, handleClose, title, body}) {
                     <label style={{width: "100px"}}>Select Key:</label>
                     <select onChange={(e) => {setSelectedKey(e.target.value);}}
                         value={selectedKey} className="d-flex customSelector">
-                        {getKeys()}
+                        {keysDiv}
                     </select>
                 </div>
 
@@ -70,7 +48,7 @@ export function EditFilter ({show, handleClose, title, body}) {
                     <div className="h-100 d-flex flex-grow-1">
                         <div className="w-100 h-100 p-3">
                             <div className="selectContainer">
-                                {getValues()}
+                                <ValueBox activeKey={selectedKey} />
                             </div>
                         </div>
                     </div>
