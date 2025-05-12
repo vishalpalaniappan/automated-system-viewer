@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 
 import PropTypes from "prop-types";
 import {Button, Modal} from "react-bootstrap";
+import {Check, Plus, PlusCircleDotted, Trash} from "react-bootstrap-icons";
 import DatePicker from "react-datepicker";
 
 import ActiveTracesContext from "../../../../Providers/contexts/ActiveTracesContext";
@@ -27,9 +28,30 @@ export function FilterRow ({activeKey}) {
     }, [activeKey]);
 
     return (
-        <div className="select-box-custom">
-
-        </div>
+        <tr>
+            <td>1</td>
+            <td>
+                <select style={{width: "100%"}}>
+                    <option>User</option>
+                    <option>Contains</option>
+                    <option>Greater Than</option>
+                </select></td>
+            <td>
+                <select style={{width: "100%"}}>
+                    <option>Equals</option>
+                    <option>Contains</option>
+                    <option>Greater Than</option>
+                </select>
+            </td>
+            <td>
+                <select style={{width: "100%"}}>
+                    <option>User 5</option>
+                    <option>Contains</option>
+                    <option>Greater Than</option>
+                </select>
+            </td>
+            <td><Trash /> <Check /></td>
+        </tr>
     );
 };
 

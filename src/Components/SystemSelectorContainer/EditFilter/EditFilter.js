@@ -2,12 +2,14 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 
 import PropTypes from "prop-types";
 import {Button, Modal} from "react-bootstrap";
+import Table from "react-bootstrap/Table";
+import {Check, Plus, PlusCircleDotted, Trash} from "react-bootstrap-icons";
 import DatePicker from "react-datepicker";
 
 import ActiveSystemContext from "../../../Providers/contexts/ActiveSystemContext";
 import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
-import {processTraces} from "./helper";
 import {FilterRow} from "./FilterRow/FilterRow";
+import {processTraces} from "./helper";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./EditFilter.scss";
@@ -43,6 +45,7 @@ export function EditFilter ({show, handleClose}) {
 
     return (
         <Modal show={show} onHide={handleClose} size="lg" centered data-bs-theme="dark">
+
             <Modal.Header className="d-flex justify-content-between">
                 <div>
                     <span>System ID:</span>
@@ -59,7 +62,40 @@ export function EditFilter ({show, handleClose}) {
             </Modal.Header>
 
             <Modal.Body>
+                <div className="d-flex flex-column h-100">
+                    <div className="d-flex justify-content-center pb-2">
+                        <span style={{cursor: "pointer"}}> Add Filter <PlusCircleDotted /> </span>
+                    </div>
+                    <div className="d-flex flex-grow-1">
+
+                        <div className="modal-body-content">
+                            <div style={{height: "600px", width: "100%"}}>
+                                <Table className="transparent-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Key</th>
+                                            <th>Filter Type</th>
+                                            <th>Filter</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <FilterRow />
+                                    </tbody>
+                                </Table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div className="d-flex justify-content-end">
+                        <span> 20 Filtered Traces </span>
+                    </div>
+
+                </div>
             </Modal.Body>
+
         </Modal>
     );
 };

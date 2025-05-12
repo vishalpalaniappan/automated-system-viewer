@@ -11,6 +11,29 @@
     padding-left: 14px !important;
 }
 
+.modal-body-content {
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    scrollbar-color: #47474766 #252526;
+    scrollbar-width: thin;
+    height: 400px;
+    width: 100%;
+}
+
+.transparent-table,
+.transparent-table thead,
+.transparent-table tbody,
+.transparent-table tr,
+.transparent-table td,
+.transparent-table th {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+.transparent-table th {
+    font-weight: normal;
+}
+
 .selectContainer {
     width: 100%;
     height: 100%;
