@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {Button, Modal} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
+import ActiveSystemContext from "../../../Providers/contexts/ActiveSystemContext";
 import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
 import {processTraces} from "./helper";
 import {ValueBox} from "./ValueBox/ValueBox";
@@ -24,6 +25,7 @@ EditFilter.propTypes = {
  */
 export function EditFilter ({show, handleClose}) {
     const {activeTraces, setActiveTraces} = useContext(ActiveTracesContext);
+    const {activeSystem, setActiveSystem} = useContext(ActiveSystemContext);
     const [selectedKey, setSelectedKey] = useState();
     const [keysDiv, setKeysDiv] = useState();
 
@@ -41,6 +43,21 @@ export function EditFilter ({show, handleClose}) {
 
     return (
         <Modal show={show} onHide={handleClose} size="lg" centered data-bs-theme="dark">
+            <Modal.Header>
+                <div className="d-flex flex-row">
+                    <span>System ID:</span>
+                    <span className="header-value">{activeSystem?.id}</span>
+                </div>
+                <div className="d-flex flex-row">
+                    <span >Version:</span>
+                    <span className="header-value">{activeSystem?.version}</span>
+                </div>
+                <div className="d-flex flex-row">
+                    <span>Deployment:</span>
+                    <span className="header-value">{activeSystem?.deployment}</span>
+                </div>
+            </Modal.Header>
+
             <Modal.Body>
 
                 <div className="d-flex flex-row">
