@@ -2,8 +2,8 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 
 import {BoxArrowInUpRight} from "react-bootstrap-icons";
 
-import ActiveNodeContext from "../../Providers/ActiveNodeContext";
-import ActiveTraceContext from "../../Providers/ActiveTraceContext";
+import ActiveNodeContext from "../../Providers/contexts/ActiveNodeContext";
+import ActiveTraceContext from "../../Providers/contexts/ActiveTraceContext";
 import {VariableContainer} from "./VariableContainer/VariableContainer";
 import {VerticleHandle} from "./VerticleHandle/VerticleHandle";
 

@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 
 import PropTypes from "prop-types";
 
-import ActiveTraceContext from "../../../../Providers/ActiveTraceContext.js";
+import ActiveTraceContext from "../../../../Providers/contexts/ActiveTraceContext.js";
 import {formatTimestampToDateTime, getDurationinSeconds} from "./helper.js";
 
 import "./TraceRow.scss";

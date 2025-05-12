@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 
-import ActiveTraceContext from "../../../Providers/ActiveTraceContext";
-import ActiveTracesContext from "../../../Providers/ActiveTracesContext";
+import ActiveTraceContext from "../../../Providers/contexts/ActiveTraceContext";
+import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
 import {TraceRow} from "./TraceRow/TraceRow";
 
 import "./TraceView.scss";

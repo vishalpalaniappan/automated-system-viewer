@@ -3,13 +3,13 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
-import ActiveNodeContext from "./ActiveNodeContext";
-import ActiveSystemContext from "./ActiveSystemContext";
-import ActiveTraceContext from "./ActiveTraceContext";
-import ActiveTracesContext from "./ActiveTracesContext";
+import ActiveNodeContext from "./contexts/ActiveNodeContext";
+import ActiveSystemContext from "./contexts/ActiveSystemContext";
+import ActiveTraceContext from "./contexts/ActiveTraceContext";
+import ActiveTracesContext from "./contexts/ActiveTracesContext";
+import SystemsContext from "./contexts/SystemsContext";
+import WebsocketConnectionStateContext from "./contexts/WebsocketConnectionStateContext";
 import System from "./System";
-import SystemsContext from "./SystemsContext";
-import WebsocketConnectionStateContext from "./WebsocketConnectionStateContext";
 
 ASPProviders.propTypes = {
     children: PropTypes.object,
@@ -29,6 +29,8 @@ function ASPProviders ({children}) {
 
     const [systemsList, setSystemsList] = useState(null);
     const [activeSystem, setActiveSystem] = useState();
+    const [activeVersion, setActiveVersion] = useState();
+    const [activeDeployment, setActiveDeployment] = useState();
     const [activeTraces, setActiveTraces] = useState();
     const [activeTrace, setActiveTrace] = useState();
     const [activeNode, setActiveNode] = useState();

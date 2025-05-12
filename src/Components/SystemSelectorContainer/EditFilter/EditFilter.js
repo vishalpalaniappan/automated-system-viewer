@@ -1,21 +1,28 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 
+import PropTypes from "prop-types";
 import {Button, Modal} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
-import ActiveTracesContext from "../../../Providers/ActiveTracesContext";
+import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
 import {processTraces} from "./helper";
 import {ValueBox} from "./ValueBox/ValueBox";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./EditFilter.scss";
 
+
+EditFilter.propTypes = {
+    show: PropTypes.bool,
+    handleClose: PropTypes.func,
+};
+
+
 /**
- *
- * @param {*} param0
- * @returns
+ * Renders a component to edit the selected filter.
+ * @return {JSX}
  */
-export function EditFilter ({show, handleClose, title, body}) {
+export function EditFilter ({show, handleClose}) {
     const {activeTraces, setActiveTraces} = useContext(ActiveTracesContext);
     const [selectedKey, setSelectedKey] = useState();
     const [keysDiv, setKeysDiv] = useState();

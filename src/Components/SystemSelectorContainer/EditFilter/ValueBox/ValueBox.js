@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {Button, Modal} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
-import ActiveTracesContext from "../../../../Providers/ActiveTracesContext";
+import ActiveTracesContext from "../../../../Providers/contexts/ActiveTracesContext";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./ValueBox.scss";

@@ -1,9 +1,9 @@
 import React from "react";
 
+import {StatusBar} from "../Components/StatusBar/StatusBar";
 import {FileViewer} from "./FileViewer/FileViewer";
 import {LeftSideContainer} from "./LeftSideContainer/LeftSideContainer";
 import {RightSideContainer} from "./RightSideContainer/RightSideContainer";
-import {StatusBar} from "../Components/StatusBar/StatusBar";
 
 import "./Viewer.scss";
 

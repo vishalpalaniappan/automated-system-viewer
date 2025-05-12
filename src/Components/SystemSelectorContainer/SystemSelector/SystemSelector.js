@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 
-import ActiveSystemContext from "../../../Providers/ActiveSystemContext";
-import SystemsContext from "../../../Providers/SystemsContext";
-import ActiveTracesContext from "../../../Providers/ActiveTracesContext";
+import ActiveSystemContext from "../../../Providers/contexts/ActiveSystemContext";
+import SystemsContext from "../../../Providers/contexts/SystemsContext";
+import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
 
 import "./SystemSelector.scss";
 
