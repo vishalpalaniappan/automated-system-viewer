@@ -45,7 +45,8 @@
     "react-monaco-editor": "^0.50.1",
     "react-router-dom": "^6.4.3",
     "react-use-websocket": "^3.0.0",
-    "stream-browserify": "^3.0.0"
+    "stream-browserify": "^3.0.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",

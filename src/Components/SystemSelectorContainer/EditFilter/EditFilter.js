@@ -5,6 +5,7 @@ import {Button, Modal} from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import {Check, Plus, PlusCircleDotted, Trash} from "react-bootstrap-icons";
 import DatePicker from "react-datepicker";
+import {v4 as uuidv4} from "uuid";
 
 import ActiveSystemContext from "../../../Providers/contexts/ActiveSystemContext";
 import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
@@ -30,6 +31,7 @@ export function EditFilter ({show, handleClose}) {
     const {activeSystem, setActiveSystem} = useContext(ActiveSystemContext);
     const [selectedKey, setSelectedKey] = useState();
     const [keysDiv, setKeysDiv] = useState();
+    const [currfilters, setCurrFilters] = useState([]);
 
     useEffect(() => {
         if (activeTraces) {
@@ -42,6 +44,24 @@ export function EditFilter ({show, handleClose}) {
             setSelectedKey(filters.keys[0]);
         }
     }, [activeTraces]);
+
+    const getRowFilters = () => {
+        const rows = [];
+        if (currfilters) {
+            currfilters.forEach((filter, index) => {
+                rows.push(<FilterRow key={filter.uuid}/>);
+            });
+        }
+        return rows;
+    };
+
+    const addFilter = () => {
+        const filters = [...currfilters];
+        filters.push({
+            uuid: uuidv4(),
+        });
+        setCurrFilters(filters);
+    };
 
     return (
         <Modal show={show} onHide={handleClose} size="lg" centered data-bs-theme="dark">
@@ -64,7 +84,9 @@ export function EditFilter ({show, handleClose}) {
             <Modal.Body>
                 <div className="d-flex flex-column h-100">
                     <div className="d-flex justify-content-center pb-2">
-                        <span style={{cursor: "pointer"}}> Add Filter <PlusCircleDotted /> </span>
+                        <span style={{cursor: "pointer"}} onClick={addFilter}>
+                            Add Filter <PlusCircleDotted />
+                        </span>
                     </div>
                     <div className="d-flex flex-grow-1">
 
@@ -81,7 +103,7 @@ export function EditFilter ({show, handleClose}) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <FilterRow />
+                                        {getRowFilters()}
                                     </tbody>
                                 </Table>
                             </div>
