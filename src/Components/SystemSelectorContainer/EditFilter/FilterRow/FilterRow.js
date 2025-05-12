@@ -7,9 +7,9 @@ import DatePicker from "react-datepicker";
 import ActiveTracesContext from "../../../../Providers/contexts/ActiveTracesContext";
 
 import "react-datepicker/dist/react-datepicker.css";
-import "./ValueBox.scss";
+import "./FilterRow.scss";
 
-ValueBox.propTypes = {
+FilterRow.propTypes = {
     activeKey: PropTypes.string,
 };
 
@@ -17,7 +17,7 @@ ValueBox.propTypes = {
  * Renders a box to display the values.
  * @return {JSX}
  */
-export function ValueBox ({activeKey}) {
+export function FilterRow ({activeKey}) {
     const {activeTraces, setActiveTraces} = useRef(ActiveTracesContext);
 
     useEffect(() => {

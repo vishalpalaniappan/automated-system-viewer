@@ -7,7 +7,7 @@ import DatePicker from "react-datepicker";
 import ActiveSystemContext from "../../../Providers/contexts/ActiveSystemContext";
 import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
 import {processTraces} from "./helper";
-import {ValueBox} from "./ValueBox/ValueBox";
+import {FilterRow} from "./FilterRow/FilterRow";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./EditFilter.scss";
@@ -59,36 +59,6 @@ export function EditFilter ({show, handleClose}) {
             </Modal.Header>
 
             <Modal.Body>
-
-                <div className="d-flex flex-row">
-                    <label style={{width: "100px"}}>Select Key:</label>
-                    <select onChange={(e) => {setSelectedKey(e.target.value);}}
-                        value={selectedKey} className="d-flex customSelector">
-                        {keysDiv}
-                    </select>
-                </div>
-
-                <div className="d-flex flex-row" style={{"height": "400px"}}>
-                    <div className="h-100 d-flex flex-grow-1">
-                        <div className="w-100 h-100 p-3">
-                            <div className="selectContainer">
-                                <ValueBox activeKey={selectedKey} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="h-100" style={{"width": "50px"}}>
-
-                    </div>
-
-                    <div className="h-100 d-flex flex-grow-1">
-                        <div className="w-100 h-100 p-3">
-                            <div className="selectContainer">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </Modal.Body>
         </Modal>
     );
