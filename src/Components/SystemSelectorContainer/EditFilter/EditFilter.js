@@ -1,10 +1,9 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 
 import PropTypes from "prop-types";
-import {Button, Modal} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import {Check, Plus, PlusCircleDotted, Trash} from "react-bootstrap-icons";
-import DatePicker from "react-datepicker";
+import {PlusCircleDotted} from "react-bootstrap-icons";
 import {v4 as uuidv4} from "uuid";
 
 import ActiveSystemContext from "../../../Providers/contexts/ActiveSystemContext";

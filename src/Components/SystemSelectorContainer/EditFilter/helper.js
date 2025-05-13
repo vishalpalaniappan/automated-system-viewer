@@ -1,9 +1,9 @@
 
 /**
  * This function processes the system level traces to extract the
- * fitlerable properties.
+ * filterable properties.
  *
- * @param {Array} traces Array of active system level traces.
+ * @param {Array} traces Array of system level traces.
  * @return {Object}
  */
 export function processTraces (traces) {
