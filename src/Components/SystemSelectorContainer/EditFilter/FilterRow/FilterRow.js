@@ -51,7 +51,7 @@ export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
     };
 
     useEffect(() => {
-        console.log("SELECTED KEY:", selectedKey);
+        console.log("Selected Key:", selectedKey);
         if (selectedKey) {
             if (filterInfo?.filterable?.values) {
                 const _values = [];
@@ -63,9 +63,17 @@ export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
                     );
                 });
                 setValues(_values);
+                setSelectedValue(filterInfo.filterable.values[selectedKey][0]);
             }
         }
     }, [selectedKey]);
+
+
+    useEffect(() => {
+        if (selectedValue) {
+            console.log("Selected Value:", selectedValue);
+        }
+    }, [selectedValue]);
 
     const saveFilter = (uid) => {
         onSaveFilter(uid, selectedKey, selectedValue);

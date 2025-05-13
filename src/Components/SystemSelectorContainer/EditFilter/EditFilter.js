@@ -9,7 +9,7 @@ import {v4 as uuidv4} from "uuid";
 import ActiveSystemContext from "../../../Providers/contexts/ActiveSystemContext";
 import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
 import {FilterRow} from "./FilterRow/FilterRow";
-import {processTraces} from "./helper";
+import {applyFilter, processTraces} from "./helper";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./EditFilter.scss";
@@ -35,6 +35,7 @@ export function EditFilter ({show, handleClose}) {
         if (activeTraces) {
             const filters = processTraces(activeTraces);
             setFilterable(filters);
+            applyFilter(activeTraces, currFilters);
         }
     }, [activeTraces]);
 
@@ -45,6 +46,7 @@ export function EditFilter ({show, handleClose}) {
         _filter.key = key;
         _filter.value = value;
         setCurrFilters([...filters]);
+        applyFilter(activeTraces, filters);
     };
 
     const deleteFilter = (uuid) => {

@@ -46,3 +46,21 @@ export function processTraces (traces) {
         endTs: endTs,
     };
 };
+
+/**
+ * 
+ * @param {Array} traces
+ * @param {Object} filters
+ */
+export function applyFilter(traces, filters) {
+    console.log("Filters:", filters);
+    console.log("Traces:", traces);
+
+    if (filters) {
+        filters.forEach((filter, index) => {
+            if (filter.apply) {
+                console.log(filter);
+            }
+        });
+    }
+};
