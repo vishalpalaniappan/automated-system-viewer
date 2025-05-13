@@ -11,36 +11,45 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./FilterRow.scss";
 
 FilterRow.propTypes = {
-    activeKey: PropTypes.string,
+    index: PropTypes.number,
+    filterInfo: PropTypes.object,
 };
 
 /**
  * Renders a box to display the values.
  * @return {JSX}
  */
-export function FilterRow ({activeKey}) {
+export function FilterRow ({index, filterInfo}) {
     const {activeTraces, setActiveTraces} = useRef(ActiveTracesContext);
+    const [keys, setKeys] = useState();
 
     useEffect(() => {
-        if (activeKey) {
-            console.log("Selected Key:", activeKey);
+        if (filterInfo) {
+            console.log("Selected Key:", filterInfo);
         }
-    }, [activeKey]);
+    }, [filterInfo]);
+
+
+    const getKeys = () => {
+        if (filterInfo?.filterable?.keys) {
+            const _keys = [];
+            filterInfo.filterable.keys.forEach((key, index) => {
+                _keys.push(<option key={key}>{key}</option>);
+            });
+            return _keys;
+        }
+    };
 
     return (
         <tr>
-            <td>1</td>
+            <td>{index + 1}</td>
             <td>
                 <select style={{width: "100%"}}>
-                    <option>User</option>
-                    <option>Contains</option>
-                    <option>Greater Than</option>
+                    {getKeys()}
                 </select></td>
             <td>
                 <select style={{width: "100%"}}>
                     <option>Equals</option>
-                    <option>Contains</option>
-                    <option>Greater Than</option>
                 </select>
             </td>
             <td>

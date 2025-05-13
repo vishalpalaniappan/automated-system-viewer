@@ -29,19 +29,13 @@ EditFilter.propTypes = {
 export function EditFilter ({show, handleClose}) {
     const {activeTraces, setActiveTraces} = useContext(ActiveTracesContext);
     const {activeSystem, setActiveSystem} = useContext(ActiveSystemContext);
-    const [selectedKey, setSelectedKey] = useState();
-    const [keysDiv, setKeysDiv] = useState();
     const [currfilters, setCurrFilters] = useState([]);
+    const [filterable, setFilterable] = useState();
 
     useEffect(() => {
         if (activeTraces) {
             const filters = processTraces(activeTraces);
-            const _keys = [];
-            filters.keys.forEach((key, index) => {
-                _keys.push(<option key={key} value={key}>{key}</option>);
-            });
-            setKeysDiv(_keys);
-            setSelectedKey(filters.keys[0]);
+            setFilterable(filters);
         }
     }, [activeTraces]);
 
@@ -49,7 +43,7 @@ export function EditFilter ({show, handleClose}) {
         const rows = [];
         if (currfilters) {
             currfilters.forEach((filter, index) => {
-                rows.push(<FilterRow key={filter.uuid}/>);
+                rows.push(<FilterRow index={index} key={filter.uuid} filterInfo={filter}/>);
             });
         }
         return rows;
@@ -59,6 +53,10 @@ export function EditFilter ({show, handleClose}) {
         const filters = [...currfilters];
         filters.push({
             uuid: uuidv4(),
+            id: activeSystem.id,
+            version: activeSystem.version,
+            deployment: activeSystem.deployment,
+            filterable: filterable
         });
         setCurrFilters(filters);
     };
