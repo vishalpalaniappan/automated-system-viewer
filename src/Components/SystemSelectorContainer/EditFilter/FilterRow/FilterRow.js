@@ -1,11 +1,7 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {useEffect, useIdseState} from "react";
 
 import PropTypes from "prop-types";
-import {Button, Modal} from "react-bootstrap";
-import {Check, Plus, PlusCircleDotted, Trash} from "react-bootstrap-icons";
-import DatePicker from "react-datepicker";
-
-import ActiveTracesContext from "../../../../Providers/contexts/ActiveTracesContext";
+import {Check, Trash} from "react-bootstrap-icons";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./FilterRow.scss";
@@ -16,13 +12,10 @@ FilterRow.propTypes = {
 };
 
 /**
- * Renders a box to display the values.
+ * Renders a row which lets you choose a filter.
  * @return {JSX}
  */
 export function FilterRow ({index, filterInfo}) {
-    const {activeTraces, setActiveTraces} = useRef(ActiveTracesContext);
-    const [keys, setKeys] = useState();
-
     useEffect(() => {
         if (filterInfo) {
             console.log("Selected Key:", filterInfo);
