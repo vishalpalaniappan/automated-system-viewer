@@ -1,3 +1,4 @@
+import { json } from "react-router-dom";
 
 /**
  * This function processes the system level traces to extract the
@@ -58,8 +59,12 @@ export function applyFilter(traces, filters) {
 
     if (filters) {
         filters.forEach((filter, index) => {
-            if (filter.apply) {
-                console.log(filter);
+            if (filter?.apply) {
+                traces.forEach((trace, index) => {
+                    const _trace = JSON.parse(trace.traces);
+                    const value = _trace[0].adliValue;
+                    console.log(value);
+                });
             }
         });
     }
