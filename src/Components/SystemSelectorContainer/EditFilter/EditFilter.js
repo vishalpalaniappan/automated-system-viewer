@@ -38,13 +38,16 @@ export function EditFilter ({show, handleClose}) {
         }
     }, [activeTraces]);
 
-    const saveFilter = (uid) => {
-        console.log("Save Filter.");
+    const saveFilter = (uuid) => {
+        console.log("SAVING FILTER", uuid);
+        const filters = [...currFilters];
+        const found = filters.find((filter) => filter.uuid == uuid);
+        found.apply = true;
+        setCurrFilters([...filters]);
     };
 
-    const deleteFilter = (uid) => {
-        console.log("Delete Filter.");
-        const filter = currFilters.filter((filter) => filter.uuid != uid);
+    const deleteFilter = (uuid) => {
+        const filter = currFilters.filter((filter) => filter.uuid != uuid);
         setCurrFilters(filter);
     };
 
@@ -73,6 +76,7 @@ export function EditFilter ({show, handleClose}) {
             version: activeSystem.version,
             deployment: activeSystem.deployment,
             filterable: filterable,
+            apply: false,
         });
         setCurrFilters(filters);
     };
@@ -110,8 +114,9 @@ export function EditFilter ({show, handleClose}) {
                                         <tr>
                                             <th></th>
                                             <th>Key</th>
-                                            <th>Filter Type</th>
+                                            <th></th>
                                             <th>Filter</th>
+                                            <th></th>
                                             <th></th>
                                         </tr>
                                     </thead>

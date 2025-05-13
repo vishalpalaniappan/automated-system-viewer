@@ -76,11 +76,17 @@ export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
                 </select>
             </td>
             <td>
-                <div className="d-flex flex-row justify-content-center">
-                    <CheckLg
-                        onClick={() => onSaveFilter(filterInfo.uuid)}
-                        style={{color: "#99ff70"}}/>
-                    <Trash
+                <div className="d-flex justify-content-center">
+                    {!filterInfo.apply &&
+                        <CheckLg size={22}
+                            onClick={() => onSaveFilter(filterInfo.uuid)}
+                            style={{color: "#99ff70"}}/>
+                    }
+                </div>
+            </td>
+            <td>
+                <div className="d-flex justify-content-center">
+                    <Trash size={22}
                         onClick={() => onDeleteFilter(filterInfo.uuid)}
                         style={{color: "#ff7070"}}/>
                 </div>
