@@ -9,13 +9,15 @@ import "./FilterRow.scss";
 FilterRow.propTypes = {
     index: PropTypes.number,
     filterInfo: PropTypes.object,
+    onSaveFilter: PropTypes.func,
+    onDeleteFilter: PropTypes.func,
 };
 
 /**
  * Renders a row which lets you choose a filter.
  * @return {JSX}
  */
-export function FilterRow ({index, filterInfo}) {
+export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
     const [keys, setKeys] = useState(<></>);
     const [values, setValues] = useState(<></>);
 
@@ -75,8 +77,12 @@ export function FilterRow ({index, filterInfo}) {
             </td>
             <td>
                 <div className="d-flex flex-row justify-content-center">
-                    <CheckLg style={{color: "#99ff70"}}/>
-                    <Trash style={{color: "#ff7070"}}/>
+                    <CheckLg
+                        onClick={() => onSaveFilter(filterInfo.uuid)}
+                        style={{color: "#99ff70"}}/>
+                    <Trash
+                        onClick={() => onDeleteFilter(filterInfo.uuid)}
+                        style={{color: "#ff7070"}}/>
                 </div>
             </td>
         </tr>

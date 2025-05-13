@@ -38,11 +38,28 @@ export function EditFilter ({show, handleClose}) {
         }
     }, [activeTraces]);
 
+    const saveFilter = (uid) => {
+        console.log("Save Filter.");
+    };
+
+    const deleteFilter = (uid) => {
+        console.log("Delete Filter.");
+        const filter = currFilters.filter((filter) => filter.uuid != uid);
+        setCurrFilters(filter);
+    };
+
     const getRowFilters = () => {
         const rows = [];
         if (currFilters) {
             currFilters.forEach((filter, index) => {
-                rows.push(<FilterRow index={index} key={filter.uuid} filterInfo={filter}/>);
+                rows.push(
+                    <FilterRow
+                        index={index}
+                        key={filter.uuid}
+                        onSaveFilter={saveFilter}
+                        onDeleteFilter={deleteFilter}
+                        filterInfo={filter}/>
+                );
             });
         }
         return rows;
