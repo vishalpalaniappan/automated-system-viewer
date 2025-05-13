@@ -28,7 +28,7 @@ EditFilter.propTypes = {
 export function EditFilter ({show, handleClose}) {
     const {activeTraces, setActiveTraces} = useContext(ActiveTracesContext);
     const {activeSystem, setActiveSystem} = useContext(ActiveSystemContext);
-    const [currfilters, setCurrFilters] = useState([]);
+    const [currFilters, setCurrFilters] = useState([]);
     const [filterable, setFilterable] = useState();
 
     useEffect(() => {
@@ -40,8 +40,8 @@ export function EditFilter ({show, handleClose}) {
 
     const getRowFilters = () => {
         const rows = [];
-        if (currfilters) {
-            currfilters.forEach((filter, index) => {
+        if (currFilters) {
+            currFilters.forEach((filter, index) => {
                 rows.push(<FilterRow index={index} key={filter.uuid} filterInfo={filter}/>);
             });
         }
@@ -49,13 +49,13 @@ export function EditFilter ({show, handleClose}) {
     };
 
     const addFilter = () => {
-        const filters = [...currfilters];
+        const filters = [...currFilters];
         filters.push({
             uuid: uuidv4(),
             id: activeSystem.id,
             version: activeSystem.version,
             deployment: activeSystem.deployment,
-            filterable: filterable
+            filterable: filterable,
         });
         setCurrFilters(filters);
     };
@@ -69,7 +69,7 @@ export function EditFilter ({show, handleClose}) {
                     <span className="header-value">{activeSystem?.id}</span>
                 </div>
                 <div>
-                    <span >Version:</span>
+                    <span>Version:</span>
                     <span className="header-value">{activeSystem?.version}</span>
                 </div>
                 <div>
@@ -86,13 +86,12 @@ export function EditFilter ({show, handleClose}) {
                         </span>
                     </div>
                     <div className="d-flex flex-grow-1">
-
                         <div className="modal-body-content">
-                            <div style={{height: "600px", width: "100%"}}>
+                            {(currFilters.length > 0) &&
                                 <Table className="transparent-table">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th></th>
                                             <th>Key</th>
                                             <th>Filter Type</th>
                                             <th>Filter</th>
@@ -103,7 +102,7 @@ export function EditFilter ({show, handleClose}) {
                                         {getRowFilters()}
                                     </tbody>
                                 </Table>
-                            </div>
+                            }
                         </div>
 
                     </div>
@@ -114,7 +113,6 @@ export function EditFilter ({show, handleClose}) {
 
                 </div>
             </Modal.Body>
-
         </Modal>
     );
 };

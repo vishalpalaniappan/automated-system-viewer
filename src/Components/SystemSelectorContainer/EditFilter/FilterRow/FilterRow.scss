@@ -1,0 +1,11 @@
+.filterSelector {
+    border: none;
+    background: #252526;
+    color: white;
+    // border-bottom: solid 1px rgb(77, 77, 77);
+    width: 100%;
+}
+
+.filterSelector:focus {
+    outline: none;
+}

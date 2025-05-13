@@ -37,16 +37,16 @@ export function FilterRow ({index, filterInfo}) {
         <tr>
             <td>{index + 1}</td>
             <td>
-                <select style={{width: "100%"}}>
+                <select className="filterSelector" style={{width: "100%"}}>
                     {getKeys()}
                 </select></td>
             <td>
-                <select style={{width: "100%"}}>
+                <select className="filterSelector" style={{width: "100%"}}>
                     <option>Equals</option>
                 </select>
             </td>
             <td>
-                <select style={{width: "100%"}}>
+                <select className="filterSelector" style={{width: "100%"}}>
                     <option>User 5</option>
                     <option>Contains</option>
                     <option>Greater Than</option>
