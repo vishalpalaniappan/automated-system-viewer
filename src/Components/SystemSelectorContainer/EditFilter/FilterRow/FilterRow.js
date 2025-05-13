@@ -94,7 +94,7 @@ export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
                     {values}
                 </select>
             </td>
-            <td>
+            <td style={{width: "50px"}}>
                 <div className="d-flex justify-content-center">
                     {!filterInfo.apply &&
                         <CheckLg size={22}
@@ -103,7 +103,7 @@ export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
                     }
                 </div>
             </td>
-            <td>
+            <td style={{width: "50px"}}>
                 <div className="d-flex justify-content-center">
                     <Trash size={22}
                         onClick={() => onDeleteFilter(filterInfo.uuid)}
