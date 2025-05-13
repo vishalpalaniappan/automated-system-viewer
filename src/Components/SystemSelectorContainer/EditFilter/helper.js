@@ -58,14 +58,31 @@ export function applyFilter(traces, filters) {
     console.log("Traces:", traces);
 
     if (filters) {
+        const _filtered = [];
         filters.forEach((filter, index) => {
             if (filter?.apply) {
                 traces.forEach((trace, index) => {
                     const _trace = JSON.parse(trace.traces);
                     const value = _trace[0].adliValue;
-                    console.log(value);
+                    if (checkTrace(filter, value)) {
+                        _filtered.push(trace);
+                    }
                 });
             }
         });
+        return _filtered;
     }
+
+    return traces;
+};
+
+const checkTrace = (filter, node) => {
+    for (const key in node) {
+        if (key && filter.key == key ) {
+            if (node[key] == filter.value) {
+                return true;
+            }
+        }
+    }
+    return false;
 };

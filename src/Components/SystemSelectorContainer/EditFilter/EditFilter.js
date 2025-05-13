@@ -46,7 +46,8 @@ export function EditFilter ({show, handleClose}) {
         _filter.key = key;
         _filter.value = value;
         setCurrFilters([...filters]);
-        applyFilter(activeTraces, filters);
+        const filtered = applyFilter(activeTraces, filters);
+        console.log(filtered);
     };
 
     const deleteFilter = (uuid) => {
