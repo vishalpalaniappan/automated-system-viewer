@@ -20,12 +20,22 @@ FilterRow.propTypes = {
 export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
     const [keys, setKeys] = useState(<></>);
     const [values, setValues] = useState(<></>);
+    const [selectedValue, setSelectedValue] = useState();
+    const [selectedKey, setSelectedKey] = useState();
 
     useEffect(() => {
         if (filterInfo) {
-            console.log("Selected Key:", filterInfo);
             getKeys();
-            selectKey(filterInfo.filterable.keys[0]);
+
+            if (filterInfo?.key) {
+                setSelectedKey(filterInfo.key);
+            } else {
+                setSelectedKey(filterInfo.filterable.keys[0]);
+            }
+
+            if (filterInfo?.value) {
+                setSelectedValue(filterInfo.value);
+            }
         }
     }, [filterInfo]);
 
@@ -40,27 +50,33 @@ export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
         }
     };
 
-    const selectKey = (e) => {
-        const key = e;
-        if (filterInfo?.filterable?.values) {
-            const _values = [];
-            filterInfo.filterable.values[key].forEach((value, index) => {
-                _values.push(
-                    <option value={value} key={index}>
-                        {JSON.stringify(value)}
-                    </option>
-                );
-            });
-            setValues(_values);
+    useEffect(() => {
+        console.log("SELECTED KEY:", selectedKey);
+        if (selectedKey) {
+            if (filterInfo?.filterable?.values) {
+                const _values = [];
+                filterInfo.filterable.values[selectedKey].forEach((value, index) => {
+                    _values.push(
+                        <option value={value} key={index}>
+                            {JSON.stringify(value)}
+                        </option>
+                    );
+                });
+                setValues(_values);
+            }
         }
+    }, [selectedKey]);
+
+    const saveFilter = (uid) => {
+        onSaveFilter(uid, selectedKey, selectedValue);
     };
 
     return (
         <tr>
             <td style={{color: "grey"}}>{index + 1}</td>
             <td>
-                <select
-                    onChange={(e) => selectKey(e.target.value)}
+                <select value={selectedKey}
+                    onChange={(e) => setSelectedKey(e.target.value)}
                     className="filterSelector"
                     style={{width: "100%"}}>
                     {keys}
@@ -71,7 +87,10 @@ export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
                 </select>
             </td>
             <td>
-                <select className="filterSelector" style={{width: "100%"}}>
+                <select value={selectedValue}
+                    onChange={(e) => setSelectedValue(e.target.value)}
+                    className="filterSelector"
+                    style={{width: "100%"}}>
                     {values}
                 </select>
             </td>
@@ -79,8 +98,8 @@ export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
                 <div className="d-flex justify-content-center">
                     {!filterInfo.apply &&
                         <CheckLg size={22}
-                            onClick={() => onSaveFilter(filterInfo.uuid)}
-                            style={{color: "#99ff70"}}/>
+                            onClick={() => saveFilter(filterInfo.uuid)}
+                            style={{color: "#99ff70", cursor: "pointer"}}/>
                     }
                 </div>
             </td>
@@ -88,7 +107,7 @@ export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
                 <div className="d-flex justify-content-center">
                     <Trash size={22}
                         onClick={() => onDeleteFilter(filterInfo.uuid)}
-                        style={{color: "#ff7070"}}/>
+                        style={{color: "#ff7070", cursor: "pointer"}}/>
                 </div>
             </td>
         </tr>

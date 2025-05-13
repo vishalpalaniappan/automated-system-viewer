@@ -22,7 +22,7 @@ EditFilter.propTypes = {
 
 
 /**
- * Renders a component to edit the selected filter.
+ * Renders a component to edit the filter in a modal.
  * @return {JSX}
  */
 export function EditFilter ({show, handleClose}) {
@@ -38,11 +38,12 @@ export function EditFilter ({show, handleClose}) {
         }
     }, [activeTraces]);
 
-    const saveFilter = (uuid) => {
-        console.log("SAVING FILTER", uuid);
+    const saveFilter = (uuid, key, value) => {
         const filters = [...currFilters];
-        const found = filters.find((filter) => filter.uuid == uuid);
-        found.apply = true;
+        const _filter = filters.find((filter) => filter.uuid == uuid);
+        _filter.apply = true;
+        _filter.key = key;
+        _filter.value = value;
         setCurrFilters([...filters]);
     };
 
