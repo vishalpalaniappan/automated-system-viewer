@@ -88,7 +88,7 @@ export function EditFilter ({show, handleClose}) {
                     <div className="d-flex flex-grow-1">
                         <div className="modal-body-content">
                             {(currFilters.length > 0) &&
-                                <Table className="transparent-table">
+                                <Table striped className="transparent-table">
                                     <thead>
                                         <tr>
                                             <th></th>

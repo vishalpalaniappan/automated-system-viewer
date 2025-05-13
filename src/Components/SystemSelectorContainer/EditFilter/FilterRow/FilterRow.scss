@@ -1,9 +1,15 @@
 .filterSelector {
     border: none;
-    background: #252526;
+    background: none;
+    // background-color: transparent;
     color: white;
-    // border-bottom: solid 1px rgb(77, 77, 77);
+    border-bottom: solid 1px rgb(77, 77, 77);
     width: 100%;
+}
+
+.filterSelector option {
+        background: #252526;
+
 }
 
 .filterSelector:focus {

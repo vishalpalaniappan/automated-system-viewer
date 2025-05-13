@@ -1,7 +1,7 @@
-import React, {useEffect, useIdseState} from "react";
+import React, {useEffect, useState} from "react";
 
 import PropTypes from "prop-types";
-import {Check, Trash} from "react-bootstrap-icons";
+import {CheckLg, Trash} from "react-bootstrap-icons";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./FilterRow.scss";
@@ -16,9 +16,14 @@ FilterRow.propTypes = {
  * @return {JSX}
  */
 export function FilterRow ({index, filterInfo}) {
+    const [keys, setKeys] = useState(<></>);
+    const [values, setValues] = useState(<></>);
+
     useEffect(() => {
         if (filterInfo) {
             console.log("Selected Key:", filterInfo);
+            getKeys();
+            selectKey(filterInfo.filterable.keys[0]);
         }
     }, [filterInfo]);
 
@@ -29,16 +34,34 @@ export function FilterRow ({index, filterInfo}) {
             filterInfo.filterable.keys.forEach((key, index) => {
                 _keys.push(<option key={key}>{key}</option>);
             });
-            return _keys;
+            setKeys(_keys);
+        }
+    };
+
+    const selectKey = (e) => {
+        const key = e;
+        if (filterInfo?.filterable?.values) {
+            const _values = [];
+            filterInfo.filterable.values[key].forEach((value, index) => {
+                _values.push(
+                    <option value={value} key={index}>
+                        {JSON.stringify(value)}
+                    </option>
+                );
+            });
+            setValues(_values);
         }
     };
 
     return (
         <tr>
-            <td>{index + 1}</td>
+            <td style={{color: "grey"}}>{index + 1}</td>
             <td>
-                <select className="filterSelector" style={{width: "100%"}}>
-                    {getKeys()}
+                <select
+                    onChange={(e) => selectKey(e.target.value)}
+                    className="filterSelector"
+                    style={{width: "100%"}}>
+                    {keys}
                 </select></td>
             <td>
                 <select className="filterSelector" style={{width: "100%"}}>
@@ -47,12 +70,15 @@ export function FilterRow ({index, filterInfo}) {
             </td>
             <td>
                 <select className="filterSelector" style={{width: "100%"}}>
-                    <option>User 5</option>
-                    <option>Contains</option>
-                    <option>Greater Than</option>
+                    {values}
                 </select>
             </td>
-            <td><Trash /> <Check /></td>
+            <td>
+                <div className="d-flex flex-row justify-content-center">
+                    <CheckLg style={{color: "#99ff70"}}/>
+                    <Trash style={{color: "#ff7070"}}/>
+                </div>
+            </td>
         </tr>
     );
 };
