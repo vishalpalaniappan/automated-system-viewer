@@ -16,18 +16,19 @@ export function Filter () {
 
     const getFilterInfo = () => {
         if (activeTracesFiltered) {
-            return <span>{activeTracesFiltered.length} Filtered Traces.</span>
+            return <span>{activeTracesFiltered.length} Filtered Traces.</span>;
         }
     };
 
     return (
         <div className="w-100 h-100">
-            <div className="showFilter pb-4" onClick={() => setEditFilterShow(true)}>Edit Filter</div>
+            <div className="showFilter pb-4" onClick={() => setEditFilterShow(true)}>
+                Edit Filter
+            </div>
 
             <EditFilter
                 show={editFilterShow}
                 handleClose={() => setEditFilterShow(false)}
-                title="Edit Filter"
             />
             <div className="w-100 d-flex justify-content-center" style={{color:"white"}}>
                 {getFilterInfo()}
