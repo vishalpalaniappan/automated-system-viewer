@@ -6,6 +6,7 @@ import Table from "react-bootstrap/Table";
 import {PlusCircleDotted} from "react-bootstrap-icons";
 import {v4 as uuidv4} from "uuid";
 
+import ActiveFilteredTracesContext from "../../../Providers/contexts/ActiveFilteredTracesContext";
 import ActiveSystemContext from "../../../Providers/contexts/ActiveSystemContext";
 import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
 import {FilterRow} from "./FilterRow/FilterRow";
@@ -28,6 +29,7 @@ EditFilter.propTypes = {
 export function EditFilter ({show, handleClose}) {
     const {activeTraces, setActiveTraces} = useContext(ActiveTracesContext);
     const {activeSystem, setActiveSystem} = useContext(ActiveSystemContext);
+    const {activeTracesFiltered, setActiveTracesFiltered} = useContext(ActiveFilteredTracesContext);
     const [currFilters, setCurrFilters] = useState([]);
     const [filterable, setFilterable] = useState();
 
@@ -35,7 +37,8 @@ export function EditFilter ({show, handleClose}) {
         if (activeTraces) {
             const filters = processTraces(activeTraces);
             setFilterable(filters);
-            applyFilter(activeTraces, currFilters);
+            const filtered = applyFilter(activeTraces, currFilters);
+            setActiveTracesFiltered(filtered);
         }
     }, [activeTraces]);
 
@@ -47,12 +50,14 @@ export function EditFilter ({show, handleClose}) {
         _filter.value = value;
         setCurrFilters([...filters]);
         const filtered = applyFilter(activeTraces, filters);
-        console.log(filtered);
+        setActiveTracesFiltered(filtered);
     };
 
     const deleteFilter = (uuid) => {
         const filter = currFilters.filter((filter) => filter.uuid != uuid);
         setCurrFilters(filter);
+        const filtered = applyFilter(activeTraces, filter);
+        setActiveTracesFiltered(filtered);
     };
 
     const getRowFilters = () => {
@@ -83,6 +88,13 @@ export function EditFilter ({show, handleClose}) {
             apply: false,
         });
         setCurrFilters(filters);
+    };
+
+    const getFilteredTraceLength = () => {
+        if (activeTracesFiltered && activeTracesFiltered.length > 0) {
+            const len = activeTracesFiltered.length;
+            return <span>{len} Filtered Traces</span>;
+        }
     };
 
     return (
@@ -134,7 +146,7 @@ export function EditFilter ({show, handleClose}) {
                     </div>
 
                     <div className="d-flex justify-content-end">
-                        <span> 20 Filtered Traces </span>
+                        {getFilteredTraceLength()}
                     </div>
 
                 </div>

@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 
 import ActiveTraceContext from "../../../Providers/contexts/ActiveTraceContext";
 import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
+import ActiveFilteredTracesContext from "../../../Providers/contexts/ActiveFilteredTracesContext";
 import {TraceRow} from "./TraceRow/TraceRow";
 
 import "./TraceView.scss";
@@ -13,12 +14,14 @@ import "./TraceView.scss";
 export function TraceView () {
     const {activeTraces, setActiveTraces} = useContext(ActiveTracesContext);
     const {activeTrace, setActiveTrace} = useContext(ActiveTraceContext);
+    const {activeTracesFiltered, setActiveTracesFiltered} = useContext(ActiveFilteredTracesContext);
 
     const [nodes, setNodes] = useState([]);
 
     useEffect(() => {
-        if (activeTraces) {
-            const traces = activeTraces.sort(function (a, b) {
+        if (activeTracesFiltered) {
+            console.log(activeTracesFiltered);
+            const traces = activeTracesFiltered.sort(function (a, b) {
                 return a.start_ts - b.start_ts;
             });
             const _nodes = [];
@@ -28,7 +31,7 @@ export function TraceView () {
             setActiveTrace(traces[0]);
             setNodes([_nodes]);
         }
-    }, [activeTraces]);
+    }, [activeTracesFiltered]);
 
     return (
         <div className="tracesContainer">

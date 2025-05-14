@@ -1,4 +1,4 @@
-import { json } from "react-router-dom";
+import {json} from "react-router-dom";
 
 /**
  * This function processes the system level traces to extract the
@@ -49,13 +49,19 @@ export function processTraces (traces) {
 };
 
 /**
- * 
+ *
  * @param {Array} traces
  * @param {Object} filters
+ * @returns {}
  */
-export function applyFilter(traces, filters) {
+export function applyFilter (traces, filters) {
     console.log("Filters:", filters);
     console.log("Traces:", traces);
+
+    if (!(filters) || filters.length == 0) {
+        console.log("No filters. Returning all traces");
+        return traces;
+    }
 
     if (filters) {
         const _filtered = [];
@@ -70,10 +76,9 @@ export function applyFilter(traces, filters) {
                 });
             }
         });
+        console.log("Filtered Traces:", _filtered);
         return _filtered;
     }
-
-    return traces;
 };
 
 const checkTrace = (filter, node) => {
