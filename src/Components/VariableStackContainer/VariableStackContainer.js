@@ -113,7 +113,7 @@ export function VariableStackContainer () {
         <div ref={variableContainerRef} className="variable-container w-100 d-flex flex-column">
             <div className="w-100 variable-title-row">
                 <div className="float-start variable-title">
-                    Trace Output
+                    Trace Input
                 </div>
             </div>
             <div className="section" ref={traceInputRef}>
