@@ -1,5 +1,3 @@
-import {json} from "react-router-dom";
-
 /**
  * This function processes the system level traces to extract the
  * filterable properties.
@@ -52,7 +50,7 @@ export function processTraces (traces) {
  *
  * @param {Array} traces
  * @param {Object} filters
- * @returns {}
+ * @return {Array}
  */
 export function applyFilter (traces, filters) {
     console.log("Filters:", filters);
@@ -63,31 +61,30 @@ export function applyFilter (traces, filters) {
         return traces;
     }
 
-    if (filters) {
+    if (traces) {
         const _filtered = [];
-        filters.forEach((filter, index) => {
-            if (filter?.apply) {
-                traces.forEach((trace, index) => {
-                    const _trace = JSON.parse(trace.traces);
-                    const value = _trace[0].adliValue;
-                    if (checkTrace(filter, value)) {
-                        _filtered.push(trace);
-                    }
-                });
+        traces.forEach((trace, index) => {
+            const _trace = JSON.parse(trace.traces);
+            const value = _trace[0].adliValue;
+            if (checkTrace(filters, value)) {
+                console.log("ADDING TRACE");
+                _filtered.push(trace);
             }
         });
-        console.log("Filtered Traces:", _filtered);
         return _filtered;
-    }
+    };
 };
 
-const checkTrace = (filter, node) => {
-    for (const key in node) {
-        if (key && filter.key == key ) {
-            if (node[key] == filter.value) {
-                return true;
+const checkTrace = (filters, node) => {
+    let filterFailed = false;
+    filters.forEach((filter, index) => {
+        if (filter.apply) {
+            if (filter?.key && (filter.key in node) && (node[filter.key] == filter.value)) {
+                console.log("KEY MATCHES VALUE");
+            } else {
+                filterFailed = true;
             }
         }
-    }
-    return false;
+    });
+    return !filterFailed;
 };
