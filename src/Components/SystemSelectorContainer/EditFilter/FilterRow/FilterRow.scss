@@ -8,10 +8,10 @@
 }
 
 .filterSelector option {
-        background: #252526;
-
+    background: #252526;
 }
 
 .filterSelector:focus {
     outline: none;
+    border-bottom: solid 1px rgb(192, 192, 192);
 }
