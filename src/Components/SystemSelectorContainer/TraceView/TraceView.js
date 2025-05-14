@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 
 import ActiveTraceContext from "../../../Providers/contexts/ActiveTraceContext";
-import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
 import ActiveFilteredTracesContext from "../../../Providers/contexts/ActiveFilteredTracesContext";
 import {TraceRow} from "./TraceRow/TraceRow";
 
@@ -12,7 +11,6 @@ import "./TraceView.scss";
  * @return {JSX.Element}
  */
 export function TraceView () {
-    const {activeTraces, setActiveTraces} = useContext(ActiveTracesContext);
     const {activeTrace, setActiveTrace} = useContext(ActiveTraceContext);
     const {activeTracesFiltered, setActiveTracesFiltered} = useContext(ActiveFilteredTracesContext);
 
