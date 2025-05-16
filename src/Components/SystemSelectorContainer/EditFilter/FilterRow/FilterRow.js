@@ -51,7 +51,6 @@ export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
     };
 
     useEffect(() => {
-        console.log("Selected Key:", selectedKey);
         if (selectedKey) {
             if (filterInfo?.filterable?.values) {
                 const _values = [];
@@ -86,11 +85,14 @@ export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
                 <select value={selectedKey}
                     onChange={(e) => setSelectedKey(e.target.value)}
                     className="filterSelector"
-                    style={{width: "100%"}}>
+                    style={{width: "100%"}}
+                    disabled={filterInfo.apply}>
                     {keys}
                 </select></td>
             <td>
-                <select className="filterSelector" style={{width: "100%"}}>
+                <select className="filterSelector"
+                    disabled={filterInfo.apply}
+                    style={{width: "100%"}}>
                     <option>Equals</option>
                 </select>
             </td>
@@ -98,6 +100,7 @@ export function FilterRow ({index, filterInfo, onSaveFilter, onDeleteFilter}) {
                 <select value={selectedValue}
                     onChange={(e) => setSelectedValue(e.target.value)}
                     className="filterSelector"
+                    disabled={filterInfo.apply}
                     style={{width: "100%"}}>
                     {values}
                 </select>
