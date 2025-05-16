@@ -17,7 +17,7 @@ export function SystemSelectorContainer () {
     const traceViewRef = useRef();
     const filterRef = useRef();
 
-    const TITLE_HEIGHT = 20;
+    const TITLE_HEIGHT = 25;
 
     const redrawContainers = () => {
         const height = systemContainerRef.current.clientHeight;
@@ -37,7 +37,10 @@ export function SystemSelectorContainer () {
                 <SystemSelector />
             </div>
             <VerticleHandle topDiv={systemRef} bottomDiv={filterRef}/>
-            <div className="w-100 title" style={{height: TITLE_HEIGHT + "px"}}>Filter</div>
+            <div className="w-100 title" style={{height: TITLE_HEIGHT + "px"}}>
+                <span style={{float: "left"}}>Filter</span>
+                <span style={{float: "right"}}>Edit Filter</span>
+            </div>
             <div className="section" ref={filterRef}>
                 <Filter />
             </div>
