@@ -1,12 +1,11 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 
-import "./Filter.scss";
-
-import { EditFilter } from "../EditFilter/EditFilter";
+import {Funnel} from "react-bootstrap-icons";
 
 import ActiveFilteredTracesContext from "../../../Providers/contexts/ActiveFilteredTracesContext";
+import {EditFilter} from "../EditFilter/EditFilter";
 
-import {Funnel} from "react-bootstrap-icons";
+import "./Filter.scss";
 /**
  * Contains the component used to filter through system level traces.
  * @return {JSX.Element}
