@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {useContext, useState} from "react";
 
 import {Funnel} from "react-bootstrap-icons";
 
@@ -16,6 +16,10 @@ export function Filter () {
     const {activeTracesFiltered, setActiveTracesFiltered} = useContext(ActiveFilteredTracesContext);
     const {activeFilters, setActiveFilters} = useContext(ActiveFiltersContext);
 
+    /**
+     * This function returns JSX to indicate how many traces have been filtered.
+     * @return {JSX}
+     */
     const getFilteredTraceLength = () => {
         if (activeTracesFiltered && activeTracesFiltered.length > 0) {
             const len = activeTracesFiltered.length;
@@ -25,6 +29,10 @@ export function Filter () {
         }
     };
 
+    /**
+     * This function returns JSX to indicate how many filters have been applied.
+     * @return {JSX}
+     */
     const getFiltersApplied = () => {
         if (activeFilters && activeFilters.length >= 0) {
             const appliedFilters = activeFilters.filter((obj) => obj.apply === true);
@@ -40,7 +48,6 @@ export function Filter () {
             <div className="showFilter pb-4" onClick={() => setEditFilterShow(true)}>
                 <Funnel /> {getFiltersApplied()}
             </div>
-
             <span className="filteredTracesLength">{getFilteredTraceLength()}</span>
         </div>
     );

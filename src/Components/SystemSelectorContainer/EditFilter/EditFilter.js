@@ -16,7 +16,6 @@ import {applyFilter, processTraces} from "./helper";
 import "react-datepicker/dist/react-datepicker.css";
 import "./EditFilter.scss";
 
-
 EditFilter.propTypes = {
     show: PropTypes.bool,
     handleClose: PropTypes.func,
