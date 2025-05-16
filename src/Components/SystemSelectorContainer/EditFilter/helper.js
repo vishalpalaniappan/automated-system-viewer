@@ -61,12 +61,22 @@ export function applyFilter (traces, filters) {
         return traces;
     }
 
+    const filtersParsed = {};
+    filters.forEach((filter, index) => {
+        if (filter.apply) {
+            if (!(filter.key in filtersParsed)) {
+                filtersParsed[filter.key] = [];
+            }
+            filtersParsed[filter.key].push(filter.value);
+        }
+    });
+
     if (traces) {
         const _filtered = [];
         traces.forEach((trace, index) => {
             const _trace = JSON.parse(trace.traces);
             const value = _trace[0].adliValue;
-            if (checkTrace(filters, value)) {
+            if (checkTrace(filtersParsed, value)) {
                 console.log("ADDING TRACE");
                 _filtered.push(trace);
             }
@@ -76,15 +86,17 @@ export function applyFilter (traces, filters) {
 };
 
 const checkTrace = (filters, node) => {
+    console.log(filters);
     let filterFailed = false;
-    filters.forEach((filter, index) => {
-        if (filter.apply) {
-            if (filter?.key && (filter.key in node) && (node[filter.key] == filter.value)) {
+    for (const key in filters) {
+        if (key) {
+            const values = filters[key];
+            if ((key in node) && (values.includes(node[key]))) {
                 console.log("KEY MATCHES VALUE");
             } else {
                 filterFailed = true;
             }
         }
-    });
+    }
     return !filterFailed;
 };
