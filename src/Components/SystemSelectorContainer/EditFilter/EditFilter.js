@@ -7,6 +7,7 @@ import {PlusCircleDotted} from "react-bootstrap-icons";
 import {v4 as uuidv4} from "uuid";
 
 import ActiveFilteredTracesContext from "../../../Providers/contexts/ActiveFilteredTracesContext";
+import ActiveFiltersContext from "../../../Providers/contexts/ActiveFiltersContext";
 import ActiveSystemContext from "../../../Providers/contexts/ActiveSystemContext";
 import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
 import {FilterRow} from "./FilterRow/FilterRow";
@@ -29,6 +30,7 @@ EditFilter.propTypes = {
 export function EditFilter ({show, handleClose}) {
     const {activeTraces, setActiveTraces} = useContext(ActiveTracesContext);
     const {activeSystem, setActiveSystem} = useContext(ActiveSystemContext);
+    const {activeFilters, setActiveFilters} = useContext(ActiveFiltersContext);
     const {activeTracesFiltered, setActiveTracesFiltered} = useContext(ActiveFilteredTracesContext);
     const [currFilters, setCurrFilters] = useState([]);
     const [filterable, setFilterable] = useState();
@@ -49,6 +51,7 @@ export function EditFilter ({show, handleClose}) {
         _filter.key = key;
         _filter.value = value;
         setCurrFilters([...filters]);
+        setActiveFilters([...filters]);
         const filtered = applyFilter(activeTraces, filters);
         setActiveTracesFiltered(filtered);
     };
@@ -56,6 +59,7 @@ export function EditFilter ({show, handleClose}) {
     const deleteFilter = (uuid) => {
         const filter = currFilters.filter((filter) => filter.uuid != uuid);
         setCurrFilters(filter);
+        setActiveFilters(filter);
         const filtered = applyFilter(activeTraces, filter);
         setActiveTracesFiltered(filtered);
     };

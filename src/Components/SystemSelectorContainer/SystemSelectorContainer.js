@@ -12,7 +12,6 @@ import "./SystemSelectorContainer.scss";
  * @return {JSX.Element}
  */
 export function SystemSelectorContainer () {
-
     const systemContainerRef = useRef();
     const systemRef = useRef();
     const traceViewRef = useRef();
