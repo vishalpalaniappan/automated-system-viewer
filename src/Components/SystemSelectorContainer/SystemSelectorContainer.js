@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 
 import {Filter} from "./Filter/Filter";
 import {SystemSelector} from "./SystemSelector/SystemSelector";
@@ -12,6 +12,7 @@ import "./SystemSelectorContainer.scss";
  * @return {JSX.Element}
  */
 export function SystemSelectorContainer () {
+
     const systemContainerRef = useRef();
     const systemRef = useRef();
     const traceViewRef = useRef();
@@ -37,10 +38,7 @@ export function SystemSelectorContainer () {
                 <SystemSelector />
             </div>
             <VerticleHandle topDiv={systemRef} bottomDiv={filterRef}/>
-            <div className="w-100 title" style={{height: TITLE_HEIGHT + "px"}}>
-                <span style={{float: "left"}}>Filter</span>
-                <span style={{float: "right"}}>Edit Filter</span>
-            </div>
+            <div className="w-100 title" style={{height: TITLE_HEIGHT + "px"}}>Filter</div>
             <div className="section" ref={filterRef}>
                 <Filter />
             </div>
