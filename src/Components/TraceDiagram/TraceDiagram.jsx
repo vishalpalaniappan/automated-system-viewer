@@ -11,8 +11,8 @@ import {
 } from "@xyflow/react";
 import PropTypes from "prop-types";
 
-import ActiveNodeContext from "../../Providers/ActiveNodeContext.js";
-import ActiveTraceContext from "../../Providers/ActiveTraceContext.js";
+import ActiveNodeContext from "../../Providers/contexts/ActiveNodeContext.js";
+import ActiveTraceContext from "../../Providers/contexts/ActiveTraceContext.js";
 import {getLayoutedElements} from "./DagreLayout.js";
 import {getNodesFromTrace} from "./helper.js";
 

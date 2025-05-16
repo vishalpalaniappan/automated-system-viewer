@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 
 import {ReadyState} from "react-use-websocket";
 
-import WebsocketConnectionStateContext from "../../Providers/WebsocketConnectionStateContext";
+import WebsocketConnectionStateContext from "../../Providers/contexts/WebsocketConnectionStateContext";
 
 import "./StatusBar.scss";
 /**

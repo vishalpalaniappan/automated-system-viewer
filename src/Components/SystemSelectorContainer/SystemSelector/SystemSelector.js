@@ -1,7 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 
-import ActiveSystemContext from "../../../Providers/ActiveSystemContext";
-import SystemsContext from "../../../Providers/SystemsContext";
+import ActiveSystemContext from "../../../Providers/contexts/ActiveSystemContext";
+import SystemsContext from "../../../Providers/contexts/SystemsContext";
+import ActiveTracesContext from "../../../Providers/contexts/ActiveTracesContext";
 
 import "./SystemSelector.scss";
 
@@ -12,6 +13,7 @@ import "./SystemSelector.scss";
 export function SystemSelector () {
     const {systemsList} = useContext(SystemsContext);
     const {activeSystem, setActiveSystem} = useContext(ActiveSystemContext);
+    const {activeTraces, setActiveTraces} = useContext(ActiveTracesContext);
 
     const [systems, setSystems] = useState([]);
     const [versions, setVersions] = useState([]);
@@ -19,6 +21,7 @@ export function SystemSelector () {
     const [activeSystemId, setActiveSystemId] = useState();
     const [activeVersion, setActiveVersion] = useState();
     const [activeDeployment, setActiveDeployment] = useState();
+    const [numOfTraces, setNumOfTraces] = useState();
 
     // Load system select dropdown from systemsList and set active system.
     const loadSystems = () => {
@@ -103,6 +106,13 @@ export function SystemSelector () {
         }
     }, [systemsList]);
 
+
+    useEffect(() => {
+        if (activeTraces) {
+            setNumOfTraces(activeTraces.length);
+        }
+    }, [activeTraces]);
+
     return (
         <div className="d-flex flex-column systemContainer">
             <div className="d-flex flex-row systemSelectRow">
@@ -134,6 +144,13 @@ export function SystemSelector () {
                         {deployments}
                     </select>
                 </div>
+            </div>
+            <div className="d-flex flex-row systemSelectRow">
+                {numOfTraces &&
+                    <span style={{width: "100%", textAlign: "end"}} >
+                        {numOfTraces} Traces Found
+                    </span>
+                }
             </div>
         </div>
     );

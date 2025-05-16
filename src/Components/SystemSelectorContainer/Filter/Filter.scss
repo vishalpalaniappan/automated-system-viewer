@@ -1,0 +1,16 @@
+.showFilter{
+    color:white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.showFilter:hover {
+    text-decoration: underline;
+}
+
+.filteredTracesLength {
+    float:right;
+    color:white;
+    font-size:13px;
+    padding-right:20px;
+}

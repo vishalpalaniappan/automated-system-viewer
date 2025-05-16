@@ -2,8 +2,8 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 
 import {BoxArrowInUpRight} from "react-bootstrap-icons";
 
-import ActiveNodeContext from "../../Providers/ActiveNodeContext";
-import ActiveTraceContext from "../../Providers/ActiveTraceContext";
+import ActiveNodeContext from "../../Providers/contexts/ActiveNodeContext";
+import ActiveTraceContext from "../../Providers/contexts/ActiveTraceContext";
 import {VariableContainer} from "./VariableContainer/VariableContainer";
 import {VerticleHandle} from "./VerticleHandle/VerticleHandle";
 
@@ -113,7 +113,7 @@ export function VariableStackContainer () {
         <div ref={variableContainerRef} className="variable-container w-100 d-flex flex-column">
             <div className="w-100 variable-title-row">
                 <div className="float-start variable-title">
-                    Trace Output
+                    Trace Input
                 </div>
             </div>
             <div className="section" ref={traceInputRef}>

@@ -3,13 +3,15 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 
-import ActiveNodeContext from "./ActiveNodeContext";
-import ActiveSystemContext from "./ActiveSystemContext";
-import ActiveTraceContext from "./ActiveTraceContext";
-import ActiveTracesContext from "./ActiveTracesContext";
+import ActiveFilteredTracesContext from "./contexts/ActiveFilteredTracesContext";
+import ActiveFiltersContext from "./contexts/ActiveFiltersContext";
+import ActiveNodeContext from "./contexts/ActiveNodeContext";
+import ActiveSystemContext from "./contexts/ActiveSystemContext";
+import ActiveTraceContext from "./contexts/ActiveTraceContext";
+import ActiveTracesContext from "./contexts/ActiveTracesContext";
+import SystemsContext from "./contexts/SystemsContext";
+import WebsocketConnectionStateContext from "./contexts/WebsocketConnectionStateContext";
 import System from "./System";
-import SystemsContext from "./SystemsContext";
-import WebsocketConnectionStateContext from "./WebsocketConnectionStateContext";
 
 ASPProviders.propTypes = {
     children: PropTypes.object,
@@ -30,8 +32,10 @@ function ASPProviders ({children}) {
     const [systemsList, setSystemsList] = useState(null);
     const [activeSystem, setActiveSystem] = useState();
     const [activeTraces, setActiveTraces] = useState();
+    const [activeTracesFiltered, setActiveTracesFiltered] = useState();
     const [activeTrace, setActiveTrace] = useState();
     const [activeNode, setActiveNode] = useState();
+    const [activeFilters, setActiveFilters] = useState();
 
     // Open websocket connection and reconnect when it closes
     const {sendJsonMessage, lastJsonMessage, readyState} = useWebSocket(
@@ -107,7 +111,17 @@ function ASPProviders ({children}) {
                     <SystemsContext.Provider value={{systemsList}}>
                         <ActiveSystemContext.Provider value={{activeSystem, setActiveSystem}}>
                             <ActiveTracesContext.Provider value={{activeTraces, setActiveTraces}}>
-                                {children}
+
+                                <ActiveFiltersContext.Provider
+                                    value={{activeFilters, setActiveFilters}}>
+
+                                    <ActiveFilteredTracesContext.Provider
+                                        value={{activeTracesFiltered, setActiveTracesFiltered}}>
+                                        {children}
+                                    </ActiveFilteredTracesContext.Provider>
+
+                                </ActiveFiltersContext.Provider>
+
                             </ActiveTracesContext.Provider>
                         </ActiveSystemContext.Provider>
                     </SystemsContext.Provider>
